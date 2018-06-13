@@ -1,0 +1,25 @@
+<div width='100%'>
+	<table width='100%'>
+		<tr>
+			<td class='heading'>PigInc. BOOKING Admin Section</td>
+			<td class='buttonsTDP'>
+				<button class='buttonR'id="requestsBtn" ng-click="requests()">Manage Requests</button> 
+				<button class='buttonR' id="registerBtn" ng-click="register()">New Agent</button> 
+				<button class='buttonR' ng-click="login()" id="loginBtn">Log In</button> 
+				<button class='buttonR' ng-click="logout()" id="logoutBtn">Log Out</button> 
+			</td>
+		</tr>	
+	</table>
+	<hr/>
+	<label>Welcome to Admin section!</label><br>
+	<hr/>
+	
+	<table>
+		<div>
+			<ui-view>
+			
+			</ui-view>
+		</div>
+	</table>
+
+</div>

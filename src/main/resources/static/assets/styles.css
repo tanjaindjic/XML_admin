@@ -1,0 +1,154 @@
+.site{
+	background-color: #eeeeee;
+	font-size: medium;
+	color: black;
+}
+
+.white{
+	background-color:white !important;
+
+}
+.heading {
+	font: bold;
+	font-family: fantasy;
+	font-size: xx-large;
+	font-weight: bold;
+	color: olive;
+	width: 72%;
+}
+.buttonP{
+	background-color: white;
+    color: black;
+    border: 2px solid olive; 
+}
+.buttonR{
+	background-color: white;
+    color: black;
+    border: 2px solid black;
+}
+.buttonS{
+	background-color: white;
+    color: black;
+    border: 2px solid olive; 
+}
+.buttonsTD{
+	width: 8%;	
+}
+.buttonsTDP{
+	width: 28%;	
+}
+.whereTD{
+	width: 40%;	
+}
+.where{
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    font-size: 18px;
+}
+.where:focus{	
+    border: 3px solid olive;
+}
+.dateTD{
+	width: 15%
+}
+.date{
+	
+}
+.peopleTD{
+	width: 15%
+}
+
+.goreDoleList{
+	float:left  !important;
+	padding: 0 !important;
+	color: blue;
+	cursor: pointer;
+	margin-top: 3%;
+	text-transform: uppercase;
+	vertical-align: top !important;
+	list-style-type: none !important;
+	border: 1px solid #4f4f4f;
+	display: block;
+	margin-right: 3%;
+}
+
+.pomeri{
+	padding-left: 3px  !important;
+	padding-right: 3px !important;
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+}
+
+.gornjaIvica{
+	border-top: 1px solid #4f4f4f;
+	padding-left: 3px  !important;
+	padding-right: 3px !important;
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+}
+
+.gornjaIvicaChat{
+    padding-left: 3px  !important;
+    padding-right: 3px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+
+.centar{
+	margin-top: 3%;
+	margin-left: 3%;
+}
+
+.goreDoleListCentar{
+    float:left  !important;
+    padding: 0 !important;
+    color: blue;
+    cursor: pointer;
+    text-transform: uppercase;
+    vertical-align: top !important;
+    list-style-type: none !important;
+    border: 1px solid #4f4f4f;
+    display: block;
+    margin-right: 3%;
+
+    margin-left: 3%;
+}
+
+.goreDoleListCentarRezervacije{
+	float:left  !important;
+	padding: 0 !important;
+	color: black;
+	cursor: pointer;
+	text-transform: uppercase;
+	vertical-align: top !important;
+	list-style-type: none !important;
+	border: 1px solid #4f4f4f;
+	display: block;
+	margin-right: 3%;
+
+	margin-left: 3%;
+}
+
+.zaSlanje{
+    margin-right: 3%;
+    margin-left: 3%;
+    margin-top:1%;
+    display:block;
+}
+
+.goreDoleListChat{
+    float:left  !important;
+    padding: 0 !important;
+    vertical-align: top !important;
+    list-style-type: none !important;
+    display: block;
+    margin-right: 3%;
+    margin-left: 3%;
+}
+
+.tudjiChat{
+    background-color: aqua;
+}
