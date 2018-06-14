@@ -111,10 +111,9 @@ public class StartData {
          System.out.println(jsonString);
          
          List<Korisnik> allUsers = mapper.readValue(jsonString, new TypeReference<List<Korisnik>>(){});
+         System.out.println("KOrisnika "  + allUsers.size());
          korisnikService.populateRepository(allUsers);
-         
-         //agentRequestService.makeDTORequests();
-         
+      
          
          
          

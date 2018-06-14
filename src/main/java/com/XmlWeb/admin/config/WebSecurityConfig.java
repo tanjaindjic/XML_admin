@@ -114,7 +114,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**/*.html",
                 "/**/*.css",
                 "/**/*.js",
-                "/register", "/success", "/confirm/**"
+                "/register", "/success", "/confirm/**", "/requests"
            
                
             )

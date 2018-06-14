@@ -12,6 +12,7 @@ import org.apache.commons.io.IOUtils;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x500.RDN;
 import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.springframework.stereotype.Service;
@@ -57,13 +58,13 @@ public class CSRService {
 
 	       System.out.println("x500Name is: " + x500Name + "\n");
 
-	       username = getX500Field("UNIQUE_IDENTIFIER", x500Name);
+	       username = getX500Field(BCStyle.UNIQUE_IDENTIFIER, x500Name);
 	    }
 	    return username;
 	}
 	
-	private String getX500Field(String asn1ObjectIdentifier, X500Name x500Name) {
-	    RDN[] rdnArray = x500Name.getRDNs(new ASN1ObjectIdentifier(asn1ObjectIdentifier));
+	private String getX500Field(ASN1ObjectIdentifier asn1ObjectIdentifier, X500Name x500Name) {
+	    RDN[] rdnArray = x500Name.getRDNs(asn1ObjectIdentifier);
 
 	    String retVal = null;
 	    for (RDN item : rdnArray) {

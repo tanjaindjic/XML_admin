@@ -1,11 +1,11 @@
 (function() {
 	'use strict';
 
-	angular.module('app').controller('requestController', requestController);
+	angular.module('app').controller('requestsController', requestsController);
 
-	requestController.$inject = [ '$location', '$scope', '$rootScope', '$http',
+	requestsController.$inject = [ '$location', '$scope', '$rootScope', '$http',
 			'$window', '$cookies', '$stateParams', '$state', '$timeout' ];
-	function requestController($location, $scope, $rootScope, $http, $window,
+	function requestsController($location, $scope, $rootScope, $http, $window,
 			$cookies, $stateParams, $state, $timeout) {
 
 		var reqc = this;
@@ -31,7 +31,7 @@
 
 			$http({
 				method : 'GET',
-				url : "https://localhost:8096/requests"
+				url : "https://localhost:8090/requests"
 			}).then(function successCallback(response) {
 				if(response.data!="")
 					$scope.allRequests=response.data;

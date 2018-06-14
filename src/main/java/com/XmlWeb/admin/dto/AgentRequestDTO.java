@@ -10,6 +10,10 @@ import java.security.Security;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import org.apache.commons.io.IOUtils;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x500.RDN;
@@ -26,14 +30,10 @@ import com.XmlWeb.admin.model.StatusKorisnika;
 import com.XmlWeb.admin.repository.KorisnikRepository;
 import com.XmlWeb.admin.service.CSRService;
 
+
 public class AgentRequestDTO {
 	
-	@Autowired
-	private CSRService csrService;
-	
-	@Autowired
-	private KorisnikRepository korisnikRepo;
-	
+
 	private Long id;
 	private String firstName;
 	private String lastName;
@@ -131,7 +131,7 @@ public class AgentRequestDTO {
 	public AgentRequestDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	public AgentRequestDTO createDTO(AgentRequest req) {
+	/*public AgentRequestDTO createDTO(AgentRequest req) {
 		InputStream csrStream = new ByteArrayInputStream(req.getCsr().getBytes());
 		String username = readCertificateSigningRequest(csrStream);
 		System.out.println("USERNAME: "+ username);
@@ -204,6 +204,6 @@ public class AgentRequestDTO {
 	        retVal = item.getFirst().getValue().toString();
 	    }
 	    return retVal;
-	}
+	}*/
 
 }
