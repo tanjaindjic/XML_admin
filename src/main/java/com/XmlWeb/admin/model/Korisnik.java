@@ -30,6 +30,7 @@ public class Korisnik {
     @Size(min = 4, max = 50)
     private String username;
 
+    private String adresa;
     
     @Column(name = "FIRSTNAME", length = 50)
     @NotNull
@@ -210,5 +211,13 @@ public class Korisnik {
 
 	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
 		this.lastPasswordResetDate = lastPasswordResetDate;
+	}
+
+	public String getAdresa() {
+		return adresa;
+	}
+
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
 	}
 }
