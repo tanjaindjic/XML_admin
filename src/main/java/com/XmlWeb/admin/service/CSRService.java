@@ -32,7 +32,6 @@ public class CSRService {
 	    try {
 	        pemParser = new PEMParser(pemReader);
 	        Object parsedObj = pemParser.readObject();
-	        System.out.println("PemParser returned: " + parsedObj);
 	        if (parsedObj instanceof PKCS10CertificationRequest) {
 	            csr = (PKCS10CertificationRequest) parsedObj;
 	        }
@@ -56,7 +55,7 @@ public class CSRService {
 	    } else {
 	       X500Name x500Name = csr.getSubject();
 
-	       System.out.println("x500Name is: " + x500Name + "\n");
+	     
 
 	       username = getX500Field(BCStyle.UNIQUE_IDENTIFIER, x500Name);
 	    }

@@ -1,21 +1,24 @@
+<style>
+
+</style>
 <div>
 	<table>
 		<tr colspan="2">
-			<td>Agent Requests</td>
+			<td><b>AGENT REQUESTS</b></td>
 		</tr>
 		<tr ng-repeat="req in allRequests">
-			<td id="td{{req.id}}">
+			<td id="td{{req.id}}" width="50%">
 				<ul>
-					<li>First Name: {{req.firstName}}</li>
-					<li>Last Name: {{req.lastName}}</li>
-					<li>Email: {{req.email}}</li>
-					<li>Adress: {{req.adresa}}</li>
-					<li>PIB: {{req.pib}}</li>
-					<li>Certificate Request: <button ng-click="showCSR(req.id)">Show</button></li>
+					<li><b>First Name:</b> {{req.firstName}}</li>
+					<li><b>Last Name:</b> {{req.lastName}}</li>
+					<li><b>Email:</b> {{req.email}}</li>
+					<li><b>Adress:</b> {{req.adresa}}</li>
+					<li><b>PIB:</b> {{req.pib}}</li>
+					<li><b>Certificate Request:</b> <button ng-click="showCSR(req.id)">Show</button></li>
 					<li style="display:none" id="{{req.id}}">{{req.csr}}</li>
 				</ul>
 			</td>
-			<td><button ng-click="approve(req.id)">Approve</button><button ng-click="reject(req.id)">Reject</button></td>
+			<td align="center"><button ng-click="approve(req.id)">Approve</button><span>    </span><button ng-click="reject(req.id)">Reject</button></td>
 		</tr>
 	</table>
 </div>

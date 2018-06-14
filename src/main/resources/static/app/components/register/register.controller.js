@@ -12,13 +12,9 @@
 
 		var init = function() {
 			$scope.TOKEN_KEY = "jwtToken"
-			$scope.notLoggedIn = $("#notLoggedIn");
-			$scope.loggedIn = $("#loggedIn").hide();
-			$scope.loggedInBody = $("#loggedInBody");
-			$scope.response = $("#response");
 			$scope.login = $("#loginBtn");
 			$scope.reg = $("#registerBtn");
-			$scope.userInfo = $("#userInfo").hide();
+			$scope.req = $("#requestBtn");
 			$scope.logout = $("#logoutBtn").hide();
 			$scope.message = "";
 
@@ -26,13 +22,11 @@
 			// =============================================================
 			if (getJwtToken()) {
 				$scope.login.hide();
-				$scope.notLoggedIn.hide();
 				$scope.logout.show();
-				showTokenInformation();
-				showUserInformation();
-				$scope.reg.hide();
-				$location.path("/home")
-			}
+				$scope.reg.show();
+				$scope.req.show();
+				
+			}else $location.path("/home")
 
 		};
 
@@ -68,11 +62,8 @@
 			removeJwtToken();
 			$scope.login.show();
 			$scope.logout.hide();
-			$scope.reg.show();
-			$scope.userInfo.hide().find("#userInfoBody").empty();
-			$scope.loggedIn.hide();
-			$scope.loggedInBody.empty();
-			$scope.notLoggedIn.show();
+			$scope.reg.hide();
+			$scope.req.hide();
 			$location.path("/home")
 		}
 
@@ -120,10 +111,7 @@
 
 		$("#logoutBtn").click(doLogout);
 
-		
-		$scope.loggedIn.click(function() {
-			$scope.loggedIn.toggleClass("text-hidden").toggleClass("text-shown");
-		});
+	
 
 	}
 

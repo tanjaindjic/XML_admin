@@ -24,7 +24,7 @@
 			if (getJwtToken()) {
 				$scope.login.hide();
 				$scope.logout.show();
-				$scope.reg.hide();
+				$scope.reg.show();
 				$scope.req.show();
 			} else
 				$location.path("/home")
@@ -55,11 +55,8 @@
 			removeJwtToken();
 			$scope.login.show();
 			$scope.logout.hide();
-			$scope.reg.show();
-			$scope.userInfo.hide().find("#userInfoBody").empty();
-			$scope.loggedIn.hide();
-			$scope.loggedInBody.empty();
-			$scope.notLoggedIn.show();
+			$scope.reg.hide();
+			$scope.req.hide();
 			$location.path("/home")
 		}
 

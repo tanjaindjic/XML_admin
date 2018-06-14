@@ -2,6 +2,7 @@ package com.XmlWeb.admin;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -16,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.XmlWeb.admin.dto.AgentRequestDTO;
 import com.XmlWeb.admin.model.AgentRequest;
 import com.XmlWeb.admin.model.Authority;
 import com.XmlWeb.admin.model.AuthorityName;
@@ -80,6 +80,7 @@ public class StartData {
          korisnikRepo.save(k);
          System.out.println("dodao admira");
          
+         try {
          URL url = new URL("https://localhost:8096/requests");
          HttpURLConnection con = (HttpURLConnection) url.openConnection();
          con.setRequestMethod("GET");
@@ -113,7 +114,9 @@ public class StartData {
          List<Korisnik> allUsers = mapper.readValue(jsonString, new TypeReference<List<Korisnik>>(){});
          System.out.println("KOrisnika "  + allUsers.size());
          korisnikService.populateRepository(allUsers);
-      
+         }catch (ConnectException ex) {
+        	 System.out.println("Glavna baza iskljucena");
+         }
          
          
          

@@ -62,7 +62,7 @@ public class AgentRequestService {
 		AgentRequestDTO dto = new AgentRequestDTO();
 		InputStream csrStream = new ByteArrayInputStream(req.getCsr().getBytes());
 		String username = csrService.readCertificateSigningRequest(csrStream);
-		System.out.println("USERNAME: "+ username);
+		
 		Korisnik k = korisnikRepo.findByUsernameIgnoreCase(username);
 		if(k!=null) {
 			dto.setId(k.getId());
@@ -76,6 +76,8 @@ public class AgentRequestService {
 			dto.setStatusNaloga(k.getStatusNaloga());
 			dto.setAuthorities(k.getAuthorities());
 			dto.setCsr(req.getCsr());
+			dto.setAdresa(k.getAdresa());
+			dto.setPIB(k.getPIB());
 		}
 		return dto;
 	}

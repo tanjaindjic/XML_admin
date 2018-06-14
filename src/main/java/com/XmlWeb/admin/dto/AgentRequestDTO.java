@@ -45,6 +45,8 @@ public class AgentRequestDTO {
 	private StatusKorisnika statusNaloga;
 	private List<Authority> authorities;
 	private String csr;
+	private String PIB;
+	private String adresa;
 	public Long getId() {
 		return id;
 	}
@@ -112,98 +114,22 @@ public class AgentRequestDTO {
 	public void setCsr(String csr) {
 		this.csr = csr;
 	}
-	public AgentRequestDTO(Long id, String firstName, String lastName, String email, String username, String password,
-			Date lastPasswordResetDate, boolean enabled, StatusKorisnika statusNaloga, List<Authority> authorities, String csr) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.username = username;
-		this.password = password;
-		this.lastPasswordResetDate = lastPasswordResetDate;
-		this.enabled = enabled;
-		this.statusNaloga = statusNaloga;
-		this.authorities = authorities;
-		this.csr = csr;
-	}
 	
 	public AgentRequestDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	/*public AgentRequestDTO createDTO(AgentRequest req) {
-		InputStream csrStream = new ByteArrayInputStream(req.getCsr().getBytes());
-		String username = readCertificateSigningRequest(csrStream);
-		System.out.println("USERNAME: "+ username);
-		Korisnik k = korisnikRepo.findByUsernameIgnoreCase(username);
-		if(k!=null) {
-			this.id = k.getId();
-			this.firstName = k.getFirstName();
-			this.lastName = k.getLastName();
-			this.email = k.getEmail();
-			this.username = username;
-			this.password = k.getPassword();
-			this.lastPasswordResetDate = k.getLastPasswordResetDate();
-			this.enabled = k.isAktiviran();
-			this.statusNaloga = k.getStatusNaloga();
-			this.authorities = k.getAuthorities();
-			this.csr = req.getCsr();
-		}
-		//naci korisnika u repo i popuniti sva polja ovde iz tog korisnika
-		return this;
-	}
 	
-	private PKCS10CertificationRequest convertPemToPKCS10CertificationRequest(InputStream pem) {
-	    Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-	    PKCS10CertificationRequest csr = null;
-	    ByteArrayInputStream pemStream = null;
-
-	    pemStream = (ByteArrayInputStream) pem;
-
-	    Reader pemReader = new BufferedReader(new InputStreamReader(pemStream));
-	    PEMParser pemParser = null;
-	    try {
-	        pemParser = new PEMParser(pemReader);
-	        Object parsedObj = pemParser.readObject();
-	        System.out.println("PemParser returned: " + parsedObj);
-	        if (parsedObj instanceof PKCS10CertificationRequest) {
-	            csr = (PKCS10CertificationRequest) parsedObj;
-	        }
-	    } catch (IOException ex) {
-	        ex.printStackTrace();
-	    } finally {
-	        if (pemParser != null) {
-	            IOUtils.closeQuietly(pemParser);
-	        }
-	    }
-	    return csr;
+	public String getPIB() {
+		return PIB;
 	}
-	
-	public String readCertificateSigningRequest(InputStream pem) {
-
-	    PKCS10CertificationRequest csr = convertPemToPKCS10CertificationRequest(pem);
-	    String username = null;
-
-	    if (csr == null) {
-	        System.out.println("FAIL! conversion of Pem To PKCS10 Certification Request");
-	    } else {
-	       X500Name x500Name = csr.getSubject();
-
-	       System.out.println("x500Name is: " + x500Name + "\n");
-
-	       username = getX500Field(BCStyle.UNIQUE_IDENTIFIER, x500Name);
-	    }
-	    return username;
+	public void setPIB(String pIB) {
+		PIB = pIB;
 	}
-	
-	private String getX500Field(ASN1ObjectIdentifier asn1ObjectIdentifier, X500Name x500Name) {
-	    RDN[] rdnArray = x500Name.getRDNs(asn1ObjectIdentifier);
-
-	    String retVal = null;
-	    for (RDN item : rdnArray) {
-	        retVal = item.getFirst().getValue().toString();
-	    }
-	    return retVal;
-	}*/
+	public String getAdresa() {
+		return adresa;
+	}
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
+	}
 
 }
