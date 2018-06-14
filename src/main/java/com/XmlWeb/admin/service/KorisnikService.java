@@ -171,4 +171,12 @@ public class KorisnikService {
 		
 	}
 
+
+	public void populateRepository(List<Korisnik> allUsers) {
+		// TODO Auto-generated method stub
+		for (Korisnik korisnik : allUsers) {
+			korisnikRepo.save(korisnik);
+		}
+	}
+
 }

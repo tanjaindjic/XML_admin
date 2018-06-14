@@ -1,8 +1,10 @@
 package com.XmlWeb.admin.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Transient;
 
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
@@ -14,8 +16,9 @@ public class AgentRequest {
 	@GeneratedValue
 	private Long id;
 	
-	@Transient 
-	private PKCS10CertificationRequest csr;
+	@Lob
+	@Column(length = 100000 ) 
+	private String csr;
 
 	public Long getId() {
 		return id;
@@ -25,18 +28,18 @@ public class AgentRequest {
 		this.id = id;
 	}
 
-	public AgentRequest(Long id, PKCS10CertificationRequest csr) {
+	public AgentRequest(Long id, String csr) {
 		super();
 		this.id = id;
 		this.csr = csr;
 
 	}
 
-	public PKCS10CertificationRequest getCsr() {
+	public String getCsr() {
 		return csr;
 	}
 
-	public void setCsr(PKCS10CertificationRequest csr) {
+	public void setCsr(String csr) {
 		this.csr = csr;
 	}
 

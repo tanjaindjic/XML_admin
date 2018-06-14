@@ -3,6 +3,7 @@ package com.XmlWeb.admin.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class Authority {
 
     @Column(name = "USERS")
     @ManyToMany
+    @JsonBackReference
     private List<Korisnik> users;
 
 

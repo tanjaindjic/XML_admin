@@ -1,6 +1,5 @@
 package com.XmlWeb.admin.model;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -8,27 +7,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Korisnik {
-
-    public List<Authority> getAuthorities() {
-		return authorities;
-	}
-
-	public void setAuthorities(List<Authority> authorities) {
-		this.authorities = authorities;
-	}
 
 	@Id
     @GeneratedValue
@@ -75,12 +66,17 @@ public class Korisnik {
     @Size(min = 4, max = 50)
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "USER_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
+    @NotNull
+    @ManyToMany
+    //@JsonBackReference
     private List<Authority> authorities;
+
+
+    @OneToMany
+    private List<Smestaj> izdaje;
+
+    @OneToMany
+    private List<Rezervacija> rezervacije;
     
     @Column(name = "confirmation_token")
 	private String confirmationToken;
@@ -92,11 +88,33 @@ public class Korisnik {
 	public void setConfirmationToken(String confirmationToken) {
 		this.confirmationToken = confirmationToken;
 	}
+	
+	@Column(name = "pib")
+    private String PIB;
 
     public Korisnik() {
     }
+    
 
-    public Long getId() {
+    public List<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
+	
+
+    public String getPIB() {
+		return PIB;
+	}
+
+	public void setPIB(String pIB) {
+		PIB = pIB;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -168,6 +186,22 @@ public class Korisnik {
         this.email = adresa;
     }
 
+
+    public List<Smestaj> getIzdaje() {
+        return izdaje;
+    }
+
+    public void setIzdaje(List<Smestaj> izdaje) {
+        this.izdaje = izdaje;
+    }
+
+    public List<Rezervacija> getRezervacije() {
+        return rezervacije;
+    }
+
+    public void setRezervacije(List<Rezervacija> rezervacije) {
+        this.rezervacije = rezervacije;
+    }
 
 	public Date getLastPasswordResetDate() {
 		// TODO Auto-generated method stub

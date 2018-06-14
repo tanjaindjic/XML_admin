@@ -4,17 +4,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.XmlWeb.admin.dto.AgentRequestDTO;
+import com.XmlWeb.admin.model.AgentRequest;
 import com.XmlWeb.admin.model.Authority;
 import com.XmlWeb.admin.model.AuthorityName;
 import com.XmlWeb.admin.model.Korisnik;
@@ -22,6 +25,12 @@ import com.XmlWeb.admin.model.Role;
 import com.XmlWeb.admin.model.StatusKorisnika;
 import com.XmlWeb.admin.repository.AuthorityRepository;
 import com.XmlWeb.admin.repository.KorisnikRepository;
+import com.XmlWeb.admin.service.AgentRequestService;
+import com.XmlWeb.admin.service.AuthorityService;
+import com.XmlWeb.admin.service.KorisnikService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 //VAZNO
 //ZA GRESKU SunCertPathBuilderException: unable to find valid certification path to requested target:
@@ -37,10 +46,18 @@ public class StartData {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-
 	
 	@Autowired
     private AuthorityRepository authorityRepository;
+	
+	@Autowired
+    private AgentRequestService agentRequestService;
+
+	@Autowired
+	private KorisnikService korisnikService;
+
+	@Autowired
+	private AuthorityService authorityService;
 
 	@PostConstruct
 	 public void initIt() throws IOException{
@@ -67,11 +84,41 @@ public class StartData {
          HttpURLConnection con = (HttpURLConnection) url.openConnection();
          con.setRequestMethod("GET");
          InputStream response = con.getInputStream();
-         try (Scanner scanner = new Scanner(response)) {
-        	    String responseBody = scanner.useDelimiter("\\A").next();
-        	    System.out.println(responseBody);
-        	}
-
+         String jsonString = IOUtils.toString(response, StandardCharsets.UTF_8); 
+         System.out.println(jsonString);
+                 
+         ObjectMapper mapper = new ObjectMapper();
+         List<AgentRequest> allRequests = mapper.readValue(jsonString, new TypeReference<List<AgentRequest>>(){});
+         agentRequestService.populateRepository(allRequests);
+         
+         
+         url = new URL("https://localhost:8096/authority");
+         con = (HttpURLConnection) url.openConnection();
+         con.setRequestMethod("GET");
+         response = con.getInputStream();
+         jsonString = IOUtils.toString(response, StandardCharsets.UTF_8); 
+         System.out.println(jsonString);
+         
+         List<Authority> allAuthorities = mapper.readValue(jsonString, new TypeReference<List<Authority>>(){});
+         authorityService.populateRepository(allAuthorities);
+         
+         
+         url = new URL("https://localhost:8096/user");
+         con = (HttpURLConnection) url.openConnection();
+         con.setRequestMethod("GET");
+         response = con.getInputStream();
+         jsonString = IOUtils.toString(response, StandardCharsets.UTF_8); 
+         System.out.println(jsonString);
+         
+         List<Korisnik> allUsers = mapper.readValue(jsonString, new TypeReference<List<Korisnik>>(){});
+         korisnikService.populateRepository(allUsers);
+         
+         //agentRequestService.makeDTORequests();
+         
+         
+         
+         
+         
 
 	 }
 
