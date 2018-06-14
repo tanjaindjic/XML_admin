@@ -3,17 +3,19 @@
 		<tr colspan="2">
 			<td>Agent Requests</td>
 		</tr>
-		<tr>
-			<td>
+		<tr ng-repeat="req in allRequests">
+			<td id="td{{req.id}}">
 				<ul>
-					<li>First Name:</li>
-					<li>Last Name:</li>
-					<li>Email:</li>
+					<li>First Name: {{req.firstName}}</li>
+					<li>Last Name: {{req.lastName}}</li>
+					<li>Email: {{req.email}}</li>
 					<li>Adress:</li>
-					<li>PIB:</li>
+					<li>PIB: {{req.pib}}</li>
+					<li>Certificate Request: <button ng-click="showCSR(req.id)">Show</button></li>
+					<li style="display:none" id="{{req.id}}">{{req.csr}}</li>
 				</ul>
 			</td>
-			<td><button>Approve</button><button>Reject</button></td>
+			<td><button ng-click="approve(req.id)">Approve</button><button ng-click="reject(req.id)">Reject</button></td>
 		</tr>
 	</table>
 </div>
