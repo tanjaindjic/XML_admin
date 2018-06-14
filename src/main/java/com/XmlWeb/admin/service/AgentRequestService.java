@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.aspectj.weaver.loadtime.Agent;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x500.RDN;
 import org.bouncycastle.asn1.x500.X500Name;
@@ -32,6 +33,8 @@ public class AgentRequestService {
 	@Autowired
 	private AgentRequestRepository agentRequestRepository;
 	
+	
+	
 
 	@Autowired
 	private CSRService csrService;
@@ -44,6 +47,11 @@ public class AgentRequestService {
 		for (AgentRequest agentRequest : allRequests) {
 			agentRequestRepository.save(agentRequest);
 		}
+	}
+	
+	public void addRequest(AgentRequest req) {
+		System.out.println("sacuvao novi req");
+		agentRequestRepository.save(req);
 	}
 	
 	

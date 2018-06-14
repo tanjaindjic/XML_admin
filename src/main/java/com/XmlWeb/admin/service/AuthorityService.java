@@ -20,4 +20,9 @@ public class AuthorityService {
 		}
 	}
 
+	public void add(Authority a) {
+		// TODO Auto-generated method stub
+		authorityRepository.save(a);
+	}
+
 }

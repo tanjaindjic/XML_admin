@@ -61,8 +61,6 @@ public class KorisnikService {
 		return korisnikRepo.findById(id).get();
 	}
 
-	
-
 	public void updatePassword(Korisnik a) {
 		korisnikRepo.save(a);
 	}
@@ -177,6 +175,12 @@ public class KorisnikService {
 		for (Korisnik korisnik : allUsers) {
 			korisnikRepo.save(korisnik);
 		}
+	}
+
+
+	public void addKorisnik(Korisnik k) {
+		// TODO Auto-generated method stub
+		korisnikRepo.save(k);
 	}
 
 }

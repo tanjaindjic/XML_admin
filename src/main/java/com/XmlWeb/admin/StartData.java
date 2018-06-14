@@ -80,6 +80,7 @@ public class StartData {
          korisnikRepo.save(k);
          System.out.println("dodao admira");
          
+         //izvdojiti u funkciju sync
          try {
          URL url = new URL("https://localhost:8096/requests");
          HttpURLConnection con = (HttpURLConnection) url.openConnection();

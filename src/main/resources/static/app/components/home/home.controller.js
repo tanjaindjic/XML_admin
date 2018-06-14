@@ -9,11 +9,33 @@
     function homeController($location, $scope, $rootScope,$http, $cookies, $window) {
     	var hc = this;
   
-    	var init = function(){
-    		
+    	var cc = this;
+		$scope.TOKEN_KEY = "jwtToken";
+		$scope.logout = $("#logoutBtn");
+		$scope.login = $("#loginBtn");
+		$scope.reg = $("#registerBtn");
+		$scope.req = $("requestsBtn");
+		
+		function getJwtToken() {
+			return localStorage.getItem($scope.TOKEN_KEY);
+		}
+		var init = function() {
 
-        };
-        init();
+			if (getJwtToken()) {
+				$scope.login.hide();
+				$scope.logout.show();
+				$scope.reg.show();
+				$scope.req.show();
+			} else{
+				$scope.login.show();
+				$scope.logout.hide();
+				$scope.reg.hide();
+				$scope.req.hide();
+			}
+				
+
+		};
+		init();
 
         
     }

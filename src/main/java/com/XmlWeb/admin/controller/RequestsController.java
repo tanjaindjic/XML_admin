@@ -3,11 +3,13 @@ package com.XmlWeb.admin.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.XmlWeb.admin.dto.AgentRequestDTO;
+import com.XmlWeb.admin.model.AgentRequest;
 import com.XmlWeb.admin.service.AgentRequestService;
 
 
@@ -20,5 +22,10 @@ public class RequestsController {
 	@RequestMapping(method = RequestMethod.GET, value = "/requests")
 	public List<AgentRequestDTO> getRequests() {
 		return agentReqService.makeDTORequests();
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/requests")
+	public void receiveRequest(@RequestBody AgentRequest req) {
+		agentReqService.addRequest(req);
 	}
 }
