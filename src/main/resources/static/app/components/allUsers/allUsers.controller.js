@@ -62,18 +62,7 @@
     		// FUNCTIONS
     		// =============================================================
 
-    		$scope.setButtons = function() {
-    			
-    			var i;
-    			for(i = 0; i < $scope.allUsers.length; i++){
-    				if($scope.allUsers[i].statusNaloga==="NEPOTVRDJEN" || $scope.allUsers[i].statusNaloga==="AKTIVAN")
-    					document.getElementById($scope.allUsers[i]).innerHTML = "Block";
-    				else
-        				document.getElementById($scope.allUsers[i]).innerHTML = "Unblock";
-    			}
-    				
- 
-    		}
+    		
     
     		$scope.block = function(id){
     			$.ajax({
@@ -84,77 +73,17 @@
 									 */
     				headers : createAuthorizationTokenHeader(),
     				success : function(data, textStatus, jqXHR) {
-    					if(document.getElementById(id).innerHTML==="Block")
-    						document.getElementById(id).innerHTML = "Unblock";
-    					else document.getElementById(id).innerHTML = "Block";
+    				
     					},
     				error: $scope.message = "Error blocking user."
     				
     				
     			});
+    			getRequests();
+    			$location.path("/allUsers")
     		}
 		
-    		
-
-    		$scope.reject = function(req_id, k_id) {
-    			var i;
-    			for (i = 0; i < $scope.allRequests.length; i++) {
-    				if ($scope.allRequests[i].csrId === req_id) {
-    					break;
-    				}
-    			}
-    			$scope.allRequests.splice(i, 1);
-    			console.log("brisem reqId: " + req_id + ", userId: " + k_id)
-    			var header = createAuthorizationTokenHeader();
-
-    			$.ajax({
-    				url : "https://localhost:8096/requests/" + req_id + "/user/"
-    						+ k_id,
-    				type : "DELETE",
-    				contentType : "application/json; charset=utf-8",
-    				dataType : "json",
-    				headers : createAuthorizationTokenHeader(),
-    				success : function(data, textStatus, jqXHR) {
-    					$scope.message = "Request successfully deleted."
-    				},
-    				error : function(data, textStatus, jqXHR) {
-    					$scope.message = "Error. Request was not deleted."
-    				}
-    			});
-
-    			$location.path("/home")
-
-    		}
-    		
-    		$scope.approve = function(req_id, k_id){
-    			var i;
-    			for (i = 0; i < $scope.allRequests.length; i++) {
-    				if ($scope.allRequests[i].csrId === req_id) {
-    					break;
-    				}
-    			}
-    			$scope.allRequests.splice(i, 1);
-    			console.log("prihvata reqId: " + req_id + ", userId: " + k_id)
-    			var header = createAuthorizationTokenHeader();
-
-    			$.ajax({
-    				url : "https://localhost:8096/requests/" + req_id + "/user/"
-    						+ k_id,
-    				type : "GET",
-    				contentType : "application/json; charset=utf-8",
-    				dataType : "json",
-    				headers : createAuthorizationTokenHeader(),
-    				success : function(data, textStatus, jqXHR) {
-    					$scope.message = "Request successfully approved."
-    				},
-    				error : function(data, textStatus, jqXHR) {
-    					$scope.message = "Error. Request was not approved :(."
-    				}
-    			});
-
-    			$location.path("/home")
-
-    		}
+ 
 
     		function getJwtToken() {
     			return localStorage.getItem($scope.TOKEN_KEY);

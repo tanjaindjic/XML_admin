@@ -21,7 +21,7 @@ ul {
 					<li><b>Status: </b> {{u.statusNaloga.toLowerCase()}}</li>
 
 					<li><p></p>
-						<button ng-click="block(u.id)" id="{{u.id}}">Block</button>
+						<button ng-click="block(u.id)" id="{{u.id}}">{{u.statusNaloga=="BLOKIRAN"?'Unblock':'Block'}}</button>
 					</li>
 					<li>_____________________________________________</li>
 				</ul>
@@ -29,5 +29,4 @@ ul {
 
 		</tr>
 	</table>
-	{{setButtons()}}
 </div>
