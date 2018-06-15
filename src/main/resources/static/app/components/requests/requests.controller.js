@@ -29,11 +29,12 @@
 			} else
 				$location.path("/home")
 
+				var header = createAuthorizationTokenHeader();
 			$http({
 				method : 'GET',
 				url : "https://localhost:8096/dtorequests",
 				headers: new Headers({
-					'Content-Type': 'application/json; charset=utf-8'
+					'Content-Type': 'application/json; charset=utf-8', header
 			        
 			      })
 			}).then(function successCallback(response) {
@@ -44,6 +45,9 @@
 				
 				$scope.message = "No new requests at the moment.";
 			});
+			
+			
+		
 
 		};
 
