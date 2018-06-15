@@ -47,6 +47,39 @@
 
 		// FUNCTIONS
 		// =============================================================
+		
+		$scope.showCSR = function(req_id){
+			if (document.getElementById('req_id').style.display = 'block') {
+		        document.getElementById('req_id').style.display = 'none';
+		        
+		    } else {
+		        document.getElementById('req_id').style.display = 'block';
+		        
+		    }
+		}
+		
+		$scope.reject = function(req_id, k_id){
+			var i;
+			for(i = 0; i < $scope.allRequests.length; i++){
+				if($scope.allRequests[i].id===req_id) {
+                    break;
+                }			
+			}
+			allRequests.splice(i,1);
+			$http({
+				method : 'DELETE',
+				url : "https://localhost:8090/requests/" + req_id + "/user/" + k_id
+			}).then(function successCallback(response) {
+				if(response.data!="")
+					$scope.message=response.data;
+
+			}, function errorCallback(response) {
+				
+				$scope.message = "Error deleting request.";
+			});
+			
+		}
+		
 		function getJwtToken() {
 			return localStorage.getItem($scope.TOKEN_KEY);
 		}

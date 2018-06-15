@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.XmlWeb.admin.dto.RegisterDTO;
 import com.XmlWeb.admin.model.Authority;
@@ -27,22 +28,20 @@ import com.XmlWeb.admin.model.StatusKorisnika;
 import com.XmlWeb.admin.repository.AuthorityRepository;
 import com.XmlWeb.admin.repository.KorisnikRepository;
 
-
 @Service
 public class KorisnikService {
 
 	@Autowired
 	private KorisnikRepository korisnikRepo;
-	
+
 	@Autowired
 	private EmailService emailService;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	@Autowired
 	private AuthorityRepository autoRepo;
-	
 
 	public List<Korisnik> getAllKorisnik() {
 		List<Korisnik> allKorisnik = new ArrayList<>();
@@ -50,7 +49,6 @@ public class KorisnikService {
 		// System.out.println(allKorisniks.size());
 		return allKorisnik;
 	}
-
 
 	public Korisnik getKorisnik(String username) {
 
@@ -66,8 +64,18 @@ public class KorisnikService {
 	}
 
 	public void deleteKorisnik(Long id) {
-		Korisnik a = korisnikRepo.findById(id).get();
-		korisnikRepo.delete(a);
+
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			String entityUrl = "https://localhost:8096/user/" + id;
+			restTemplate.delete(entityUrl);
+
+		} catch (Exception ex) {
+			System.out.println("Glavna baza nije dostupna, zahtevi ce biti preuzeti po ukljucenju baze.");
+		}
+		
+		korisnikRepo.deleteById(id);
+
 	}
 
 	public Korisnik findByEmail(String email) {
@@ -79,43 +87,42 @@ public class KorisnikService {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public ResponseEntity<HashMap> registerKorisnik(RegisterDTO regDetails) throws URISyntaxException, MalformedURLException, InterruptedException {
+	public ResponseEntity<HashMap> registerKorisnik(RegisterDTO regDetails)
+			throws URISyntaxException, MalformedURLException, InterruptedException {
 		HashMap<String, String> map = new HashMap<>();
 		Korisnik k = korisnikRepo.findByUsernameIgnoreCase(regDetails.getUsername());
-		if(k!=null) {
+		if (k != null) {
 			map.put("text", "Username is already taken.");
 			return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED);
 		}
-			
-			
+
 		k = korisnikRepo.findByEmailIgnoreCase(regDetails.getEmail());
-		if(k!=null) {
+		if (k != null) {
 			map.put("text", "Email is already taken.");
 			return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED);
 		}
-			
-			
-		if(!regDetails.getPassword1().equals(regDetails.getPassword2()))
-			{
+
+		if (!regDetails.getPassword1().equals(regDetails.getPassword2())) {
 			map.put("text", "Passwords don't match.");
 			return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED);
-			}
-		
-		/*Zxcvbn passwordCheck = new Zxcvbn();		
-		Strength strength = passwordCheck.measure(regDetails.getPassword1());
-		if (strength.getScore() < 1) {
-			map.put("text","Your password is too weak. Please choose a stronger one.");
-			return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED);
 		}
-			*/
+
+		/*
+		 * Zxcvbn passwordCheck = new Zxcvbn(); Strength strength =
+		 * passwordCheck.measure(regDetails.getPassword1()); if (strength.getScore() <
+		 * 1) {
+		 * map.put("text","Your password is too weak. Please choose a stronger one.");
+		 * return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED); }
+		 */
 		Korisnik novi = new Korisnik();
 		novi.setAktiviran(false);
 		List<Authority> l = new ArrayList<>();
 		Authority a = new Authority();
-		
-		if(regDetails.getIsAgent()!=null)
+
+		if (regDetails.getIsAgent() != null)
 			a.setName(AuthorityName.ROLE_AGENT);
-		else a.setName(AuthorityName.ROLE_USER);
+		else
+			a.setName(AuthorityName.ROLE_USER);
 		autoRepo.save(a);
 		l.add(a);
 		novi.setAuthorities(l);
@@ -126,24 +133,25 @@ public class KorisnikService {
 		novi.setStatusNaloga(StatusKorisnika.NEPOTVRDJEN);
 		novi.setLastPasswordResetDate(new Date());
 		novi.setUsername(regDetails.getUsername());
-		if(novi.getAuthorities().get(0).getName().toString().equals(AuthorityName.ROLE_AGENT.toString()))
+		if (novi.getAuthorities().get(0).getName().toString().equals(AuthorityName.ROLE_AGENT.toString()))
 			novi.setRole(Role.AGENT);
-		else novi.setRole(Role.USER);
+		else
+			novi.setRole(Role.USER);
 		novi.setConfirmationToken(UUID.randomUUID().toString());
 		korisnikRepo.save(novi);
-		
-		
-	    String link =  "https://localhost:8096";
+
+		String link = "https://localhost:8096";
 		SimpleMailMessage registrationEmail = new SimpleMailMessage();
 		registrationEmail.setTo(novi.getEmail());
 		registrationEmail.setSubject("Registration Confirmation");
-		registrationEmail.setText("To confirm your e-mail address, please click the link below:\n" +
-				link + "/confirm/"+novi.getConfirmationToken().toString());
+		registrationEmail.setText("To confirm your e-mail address, please click the link below:\n" + link + "/confirm/"
+				+ novi.getConfirmationToken().toString());
 		registrationEmail.setFrom("noreply@domain.com");
-		
+
 		emailService.sendEmail(registrationEmail);
-		//return new ResponseEntity<String>("Almost there! Please finish your registration via link we sent on your email.", HttpStatus.OK);
-		
+		// return new ResponseEntity<String>("Almost there! Please finish your
+		// registration via link we sent on your email.", HttpStatus.OK);
+
 		map.put("text", "Almost there! Please finish your registration via link we sent on your email.");
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
@@ -152,23 +160,21 @@ public class KorisnikService {
 		System.out.println("JEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEJ ♥");
 		HashMap<String, String> map = new HashMap<>();
 		Korisnik k = korisnikRepo.findByConfirmationToken(token);
-		if(k==null) {
+		if (k == null) {
 			map.put("text", "Bad token. Registration failed.");
 			return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
 		}
-		
+
 		k.setAktiviran(true);
 		k.setStatusNaloga(StatusKorisnika.AKTIVAN);
 		korisnikRepo.save(k);
 		map.put("text", "Success! Your account is active now.");
 		response.sendRedirect("https://localhost:8096/#!/success/2");
 		return new ResponseEntity<>(map, HttpStatus.OK);
-			
-			
-		// TODO Auto-generated method stub
-		
-	}
 
+		// TODO Auto-generated method stub
+
+	}
 
 	public void populateRepository(List<Korisnik> allUsers) {
 		// TODO Auto-generated method stub
@@ -176,7 +182,6 @@ public class KorisnikService {
 			korisnikRepo.save(korisnik);
 		}
 	}
-
 
 	public void addKorisnik(Korisnik k) {
 		// TODO Auto-generated method stub

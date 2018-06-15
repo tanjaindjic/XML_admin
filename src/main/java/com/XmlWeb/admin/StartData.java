@@ -81,43 +81,7 @@ public class StartData {
          System.out.println("dodao admira");
          
          //izvdojiti u funkciju sync
-         try {
-         URL url = new URL("https://localhost:8096/requests");
-         HttpURLConnection con = (HttpURLConnection) url.openConnection();
-         con.setRequestMethod("GET");
-         InputStream response = con.getInputStream();
-         String jsonString = IOUtils.toString(response, StandardCharsets.UTF_8); 
-         System.out.println(jsonString);
-                 
-         ObjectMapper mapper = new ObjectMapper();
-         List<AgentRequest> allRequests = mapper.readValue(jsonString, new TypeReference<List<AgentRequest>>(){});
-         agentRequestService.populateRepository(allRequests);
-         
-         
-         url = new URL("https://localhost:8096/authority");
-         con = (HttpURLConnection) url.openConnection();
-         con.setRequestMethod("GET");
-         response = con.getInputStream();
-         jsonString = IOUtils.toString(response, StandardCharsets.UTF_8); 
-         System.out.println(jsonString);
-         
-         List<Authority> allAuthorities = mapper.readValue(jsonString, new TypeReference<List<Authority>>(){});
-         authorityService.populateRepository(allAuthorities);
-         
-         
-         url = new URL("https://localhost:8096/user");
-         con = (HttpURLConnection) url.openConnection();
-         con.setRequestMethod("GET");
-         response = con.getInputStream();
-         jsonString = IOUtils.toString(response, StandardCharsets.UTF_8); 
-         System.out.println(jsonString);
-         
-         List<Korisnik> allUsers = mapper.readValue(jsonString, new TypeReference<List<Korisnik>>(){});
-         System.out.println("KOrisnika "  + allUsers.size());
-         korisnikService.populateRepository(allUsers);
-         }catch (ConnectException ex) {
-        	 System.out.println("Glavna baza iskljucena");
-         }
+        
          
          
          

@@ -19,7 +19,11 @@ import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.XmlWeb.admin.dto.AgentRequestDTO;
 import com.XmlWeb.admin.model.AgentRequest;
@@ -32,10 +36,7 @@ public class AgentRequestService {
 	
 	@Autowired
 	private AgentRequestRepository agentRequestRepository;
-	
-	
-	
-
+		
 	@Autowired
 	private CSRService csrService;
 	
@@ -73,7 +74,7 @@ public class AgentRequestService {
 		
 		Korisnik k = korisnikRepo.findByUsernameIgnoreCase(username);
 		if(k!=null) {
-			dto.setId(k.getId());
+			dto.setKorisnikId(k.getId());
 			dto.setFirstName(k.getFirstName());
 			dto.setLastName(k.getLastName());
 			dto.setEmail(k.getEmail());
@@ -86,8 +87,23 @@ public class AgentRequestService {
 			dto.setCsr(req.getCsr());
 			dto.setAdresa(k.getAdresa());
 			dto.setPIB(k.getPIB());
+			dto.setCsrId(req.getId());
 		}
 		return dto;
 	}
 
+	public void deleteRequest(Long id) {
+		
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			String entityUrl = "https://localhost:8096/requests/" + id;
+			restTemplate.delete(entityUrl);
+
+		} catch (Exception ex) {
+			System.out.println("Glavna baza nije dostupna, zahtevi ce biti preuzeti po ukljucenju baze.");
+		}
+		agentRequestRepository.deleteById(id);
+		
+	}
+	
 }

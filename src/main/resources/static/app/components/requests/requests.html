@@ -6,19 +6,20 @@
 		<tr colspan="2">
 			<td><b>AGENT REQUESTS</b></td>
 		</tr>
+		<tr><td colspan="2">{{message}}</tr>
 		<tr ng-repeat="req in allRequests">
-			<td id="td{{req.id}}" width="50%">
+			<td id="td{{req.csrId}}" width="50%">
 				<ul>
 					<li><b>First Name:</b> {{req.firstName}}</li>
 					<li><b>Last Name:</b> {{req.lastName}}</li>
 					<li><b>Email:</b> {{req.email}}</li>
 					<li><b>Adress:</b> {{req.adresa}}</li>
 					<li><b>PIB:</b> {{req.pib}}</li>
-					<li><b>Certificate Request:</b> <button ng-click="showCSR(req.id)">Show</button></li>
-					<li style="display:none" id="{{req.id}}">{{req.csr}}</li>
+					<li><b>Certificate Request:</b> <button ng-click="showCSR(req.csrId)">Show</button></li>
+					<li style="display:none" id="{{req.csrId}}">{{req.csr}}</li>
 				</ul>
 			</td>
-			<td align="center"><button ng-click="approve(req.id)">Approve</button><span>    </span><button ng-click="reject(req.id)">Reject</button></td>
+			<td align="center"><button ng-click="approve(req.csrId, req.korisnikId)">Approve</button><span>    </span><button ng-click="reject(req.csrId, req.korisnikId)">Reject</button></td>
 		</tr>
 	</table>
 </div>

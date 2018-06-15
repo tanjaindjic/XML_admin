@@ -34,7 +34,7 @@ import com.XmlWeb.admin.service.CSRService;
 public class AgentRequestDTO {
 	
 
-	private Long id;
+	private Long korisnikId;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -45,13 +45,14 @@ public class AgentRequestDTO {
 	private StatusKorisnika statusNaloga;
 	private List<Authority> authorities;
 	private String csr;
+	private Long csrId;
 	private String PIB;
 	private String adresa;
-	public Long getId() {
-		return id;
+	public Long getKorisnikId() {
+		return korisnikId;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setKorisnikId(Long id) {
+		this.korisnikId = id;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -130,6 +131,12 @@ public class AgentRequestDTO {
 	}
 	public void setAdresa(String adresa) {
 		this.adresa = adresa;
+	}
+	public Long getCsrId() {
+		return csrId;
+	}
+	public void setCsrId(Long csrId) {
+		this.csrId = csrId;
 	}
 
 }
