@@ -1,5 +1,7 @@
 <style>
-
+ul {
+  list-style-type: none;
+}
 </style>
 <div>
 	<table>
@@ -13,10 +15,10 @@
 					<li><b>First Name:</b> {{req.firstName}}</li>
 					<li><b>Last Name:</b> {{req.lastName}}</li>
 					<li><b>Email:</b> {{req.email}}</li>
-					<li><b>Adress:</b> {{req.adresa}}</li>
+					<li><b>Address:</b> {{req.adresa}}</li>
 					<li><b>PIB:</b> {{req.pib}}</li>
-					<li><b>Certificate Request:</b> <button ng-click="showCSR(req.csrId)">Show</button></li>
-					<li style="display:none" id="{{req.csrId}}">{{req.csr}}</li>
+					<li><b>Certificate Request:</b> <button ng-click="showCSR(req.csr)">Show</button></li>
+					<!-- <li style="display:none" id="{{req.csrId}}">{{req.csr}}</li> -->
 				</ul>
 			</td>
 			<td align="center"><button ng-click="approve(req.csrId, req.korisnikId)">Approve</button><span>    </span><button ng-click="reject(req.csrId, req.korisnikId)">Reject</button></td>

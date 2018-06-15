@@ -15,6 +15,9 @@
 		function getJwtToken() {
 			return localStorage.getItem($scope.TOKEN_KEY);
 		}
+		
+		$scope.req.hide();
+		
 		var init = function() {
 
 			if (getJwtToken()) {
@@ -47,6 +50,10 @@
 		
 		$scope.requests = function() {
 			$location.path('/requests');
+		}
+		
+		$scope.home = function() {
+			$location.path('/home');
 		}
 		
 		$scope.logout = function(){

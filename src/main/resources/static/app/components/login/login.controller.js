@@ -22,16 +22,18 @@
 			$scope.req = $("#requestsBtn");
 			$scope.login = $("#loginBtn");
 			$scope.reg = $("#registerBtn");
-			$scope.logout = $("#logoutBtn").hide();
+			$scope.logout = $("#logoutBtn");
 
 			// INITIAL CALLS
 			// =============================================================
 			if (getJwtToken()) {
-				$scope.login.hide();
-				$scope.logout.show();				
-				$scope.reg.show();
-				$scope.req.show();
+				
 				$location.path("/home")
+			}else{
+				$scope.login.show();
+				$scope.logout.hide();				
+				$scope.reg.hide();
+				$scope.req.hide();
 			}
 
 		};
