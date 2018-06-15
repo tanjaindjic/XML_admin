@@ -32,12 +32,6 @@
 			 controller: 'registerController',
 			 controllerAs: 'regc'
 		 })
-		 .state('core.requests', {
-			 url: 'requests',
-			 templateUrl: 'app/components/requests/requests.html',
-			 controller: 'requestsController',
-			 controllerAs: 'reqc'
-		 })
 		 .state('core.succ', {
 			 url: 'success/{id}',
 			 templateUrl: 'app/components/succ/succ.html',

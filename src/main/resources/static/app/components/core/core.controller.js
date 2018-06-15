@@ -10,13 +10,12 @@
 		$scope.logout = $("#logoutBtn");
 		$scope.login = $("#loginBtn");
 		$scope.reg = $("#registerBtn");
-		$scope.req = $("requestsBtn");
-		
+		$scope.loggedIn = false;
 		function getJwtToken() {
 			return localStorage.getItem($scope.TOKEN_KEY);
 		}
 		
-		$scope.req.hide();
+	
 		
 		var init = function() {
 
@@ -24,12 +23,12 @@
 				$scope.login.hide();
 				$scope.logout.show();
 				$scope.reg.show();
-				$scope.req.show();
+				$scope.loggedIn = true;
 			} else{
 				$scope.login.show();
 				$scope.logout.hide();
 				$scope.reg.hide();
-				$scope.req.hide();
+				$scope.loggedIn = false;
 			}
 				
 
@@ -48,10 +47,6 @@
 			$location.path('/register');
 		}
 		
-		$scope.requests = function() {
-			$location.path('/requests');
-		}
-		
 		$scope.home = function() {
 			$location.path('/home');
 		}
@@ -61,9 +56,9 @@
 			$scope.login.show();
 			$scope.logout.hide();
 			$scope.reg.hide();
-			$scope.req.hide();
+			$scope.loggedIn = false;
 			
-			$location.path("/home")
+			$location.path("/login")
 		}
 
 	}

@@ -3,15 +3,13 @@
 		<tr>
 			<td class='heading'>PigInc. BOOKING Admin Section</td>
 			<td class='buttonsTDP'>
-				<button class='buttonR' id="homeBtn" ng-click="home()">
+				<button class='buttonR' id="homeBtn" ng-click="home()" ng-show="loggedIn">
 					Home</button>
-				<button class='buttonR' id="requestsBtn" ng-click="requests()">Manage
-					Requests</button>
-				<button class='buttonR' id="registerBtn" ng-click="register()">New
+				<button class='buttonR' id="registerBtn" ng-click="register()" ng-show="loggedIn">New
 					Agent</button>
-				<button class='buttonR' ng-click="login()" id="loginBtn">Log
+				<button class='buttonR' ng-click="login()" id="loginBtn" ng-hide="loggedIn">Log
 					In</button>
-				<button class='buttonR' ng-click="logout()" id="logoutBtn">Log
+				<button class='buttonR' ng-click="logout()" id="logoutBtn" ng-show="loggedIn">Log
 					Out</button>
 			</td>
 		</tr>

@@ -23,17 +23,16 @@
 			$scope.login = $("#loginBtn");
 			$scope.reg = $("#registerBtn");
 			$scope.logout = $("#logoutBtn");
+			$scope.loggedIn = false;
 
 			// INITIAL CALLS
 			// =============================================================
 			if (getJwtToken()) {
-				
+				$scope.loggedIn = true;
 				$location.path("/home")
 			}else{
-				$scope.login.show();
-				$scope.logout.hide();				
-				$scope.reg.hide();
-				$scope.req.hide();
+				
+				$scope.loggedIn = false;
 			}
 
 		};
@@ -67,7 +66,8 @@
 					$scope.logout.show();
 					$scope.reg.show();
 					$scope.req.show();
-					$location.path("/home")
+					
+					$window.location.reload();
 			
 	            }, function errorCallback(response) {
 	            	$scope.message="Bad credentials."
@@ -77,10 +77,7 @@
 
 		function doLogout() {
 			removeJwtToken();
-			$scope.login.show();
-			$scope.logout.hide();
-			$scope.reg.hide();
-			$scope.req.hide();
+			$scope.loggedIn= false;
 			$location.path("/home")
 		}
 
