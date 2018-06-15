@@ -25,10 +25,9 @@
     	var init = function(){
     		var absUrl = $location.absUrl();
     		var lastPart = absUrl.split("/").pop();
-    		if(lastPart==1)
-    			$scope.message = "Almost there! Please finish your registration via link we sent on your email.";
-    		if(lastPart==2){
-    			$scope.message = "Your account is now active!"
+    		
+    		if(lastPart==1){
+    			$scope.message = "Successful registration. Email with registration details was sent."
     			document.getElementById("timer").style.display = "block";
     			$timeout(timer, 1000);  
     		}

@@ -8,7 +8,6 @@
 		var cc = this;
 		$scope.TOKEN_KEY = "jwtToken";
 		$scope.logout = $("#logoutBtn");
-		$scope.login = $("#loginBtn");
 		$scope.reg = $("#registerBtn");
 		$scope.loggedIn = false;
 		function getJwtToken() {
@@ -20,12 +19,10 @@
 		var init = function() {
 
 			if (getJwtToken()) {
-				$scope.login.hide();
 				$scope.logout.show();
 				$scope.reg.show();
 				$scope.loggedIn = true;
 			} else{
-				$scope.login.show();
 				$scope.logout.hide();
 				$scope.reg.hide();
 				$scope.loggedIn = false;
@@ -53,7 +50,6 @@
 		
 		$scope.logout = function(){
 			removeJwtToken();
-			$scope.login.show();
 			$scope.logout.hide();
 			$scope.reg.hide();
 			$scope.loggedIn = false;
