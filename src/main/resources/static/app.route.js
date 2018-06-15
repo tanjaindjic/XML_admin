@@ -32,6 +32,12 @@
 			 controller: 'registerController',
 			 controllerAs: 'regc'
 		 })
+		 .state('core.allUsers', {
+			 url: 'allUsers',
+			 templateUrl: 'app/components/allUsers/allUsers.html',
+			 controller: 'allUsersController',
+			 controllerAs: 'auc'
+		 })
 		 .state('core.succ', {
 			 url: 'success/{id}',
 			 templateUrl: 'app/components/succ/succ.html',

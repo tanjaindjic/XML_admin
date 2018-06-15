@@ -50,6 +50,11 @@
 			$location.path('/home');
 		}
 		
+		
+		$scope.allUsers = function() {
+			$location.path('/allUsers');
+		}
+		
 		$scope.logout = function(){
 			removeJwtToken();
 			$scope.logout.hide();

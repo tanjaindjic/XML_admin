@@ -1,0 +1,33 @@
+<style>
+ul {
+	list-style-type: none;
+}
+</style>
+<div>
+	<table>
+		<tr>
+			<td><b>ALL USERS</b></td>
+		</tr>
+		<tr>
+			<td>{{message}}
+		</tr>
+		<tr ng-repeat="u in allUsers">
+			<td id="td{{u.id}}" width="50%">
+				<ul>
+					<li><b>First Name:</b> {{u.firstName}}</li>
+					<li><b>Last Name:</b> {{u.lastName}}</li>
+					<li><b>Email:</b> {{u.email}}</li>
+					<li><b>Role:</b> {{u.role.toLowerCase()}}</li>
+					<li><b>Status: </b> {{u.statusNaloga.toLowerCase()}}</li>
+
+					<li><p></p>
+						<button ng-click="block(u.id)" id="{{u.id}}">Block</button>
+					</li>
+					<li>_____________________________________________</li>
+				</ul>
+			</td>
+
+		</tr>
+	</table>
+	{{setButtons()}}
+</div>
