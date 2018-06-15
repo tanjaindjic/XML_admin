@@ -10,11 +10,12 @@
 		$scope.logout = $("#logoutBtn");
 		$scope.reg = $("#registerBtn");
 		$scope.loggedIn = false;
+		$scope.username = "";
+		
 		function getJwtToken() {
 			return localStorage.getItem($scope.TOKEN_KEY);
 		}
 		
-	
 		
 		var init = function() {
 
@@ -22,6 +23,7 @@
 				$scope.logout.show();
 				$scope.reg.show();
 				$scope.loggedIn = true;
+				$scope.username = " " +jwt_decode(getJwtToken()).sub;
 			} else{
 				$scope.logout.hide();
 				$scope.reg.hide();

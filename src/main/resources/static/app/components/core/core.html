@@ -3,17 +3,23 @@
 		<tr>
 			<td class='heading'>PigInc. BOOKING Admin Section</td>
 			<td class='buttonsTDP'>
-				<button class='buttonR' id="homeBtn" ng-click="home()" ng-show="loggedIn">
-					Home</button>
-				<button class='buttonR' id="registerBtn" ng-click="register()" ng-show="loggedIn">New
-					Agent</button>
-				<button class='buttonR' ng-click="logout()" id="logoutBtn" ng-show="loggedIn">Log
-					Out</button>
+				<button class='buttonR' id="homeBtn" ng-click="home()"
+					ng-show="loggedIn">Requests</button>
+				<button class='buttonR' id="usersBtn" ng-click="allUsers()"
+					ng-show="loggedIn">Users</button>
+				<button class='buttonR' id="commentsBtn" ng-click="comments()"
+					ng-show="loggedIn">Comments</button>
+				<button class='buttonR' id="registerBtn" ng-click="register()"
+					ng-show="loggedIn">New Agent</button>
+					<button class='buttonR' id="settingsBtn" ng-click="settings()" ng-show="loggedIn">
+					Settings</button>
+				<button class='buttonR' ng-click="logout()" id="logoutBtn"
+					ng-show="loggedIn">Log Out</button>
 			</td>
 		</tr>
 	</table>
 	<hr />
-	<label>Welcome to Admin section!</label><br>
+	<label>Hello{{username}}! Welcome to Admin section!</label><br>
 	<hr />
 
 	<table>
