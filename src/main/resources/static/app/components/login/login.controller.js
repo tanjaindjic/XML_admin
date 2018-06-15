@@ -56,7 +56,7 @@
 			console.log(JSON.stringify(loginData))
 			 $http({
 	                method: 'POST',
-	                url: "https://localhost:8090/auth",
+	                url: "https://localhost:8096/auth",
 	                data : JSON.stringify(loginData)
 	            }).then(function successCallback(response) {
 	            	console.log(response.data.token)

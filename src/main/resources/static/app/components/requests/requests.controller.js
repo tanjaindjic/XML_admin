@@ -31,7 +31,11 @@
 
 			$http({
 				method : 'GET',
-				url : "https://localhost:8090/requests"
+				url : "https://localhost:8096/dtorequests",
+				headers: new Headers({
+					'Content-Type': 'application/json; charset=utf-8'
+			        
+			      })
 			}).then(function successCallback(response) {
 				if(response.data!="")
 					$scope.allRequests=response.data;
@@ -65,10 +69,10 @@
                     break;
                 }			
 			}
-			allRequests.splice(i,1);
+			$scope.allRequests.splice(i,1);
 			$http({
 				method : 'DELETE',
-				url : "https://localhost:8090/requests/" + req_id + "/user/" + k_id
+				url : "https://localhost:8096/requests/" + req_id + "/user/" + k_id
 			}).then(function successCallback(response) {
 				if(response.data!="")
 					$scope.message=response.data;
