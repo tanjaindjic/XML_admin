@@ -53,6 +53,7 @@
 		
 		$scope.allUsers = function() {
 			$location.path('/allUsers');
+			
 		}
 		
 		$scope.logout = function(){

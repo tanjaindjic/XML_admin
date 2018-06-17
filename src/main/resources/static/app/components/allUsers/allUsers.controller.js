@@ -17,6 +17,35 @@
     		$scope.allUsers = [];
     		$scope.loggedIn = false;
     		
+    		
+    		
+    		var refresh = function(){
+    			getRequests();
+    			$location.path("/allUsers");
+    		}
+		
+    		var getRequests = function() {
+
+    			$.ajax({
+    				url : "https://localhost:8096/user",
+    				type : "GET",/*
+									 * contentType: "application/json;
+									 * charset=utf-8", dataType: "json",
+									 */
+    				headers : createAuthorizationTokenHeader(),
+    				success : function(data, textStatus, jqXHR) {
+    					
+    						$scope.allUsers = data;
+        					$scope.message ="";
+        					refresh();
+    					
+    				}
+    				
+    			});
+    		}
+
+    		
+    		
     		var init = function() {
 
     			// INITIAL CALLS
@@ -33,31 +62,14 @@
     				$location.path("/login")
     				$scope.loggedIn= false;
     			}
+    			
+    			getRequests();
 
     		};
 
     		init();
 
-    		var getRequests = function() {
-
-    			$.ajax({
-    				url : "https://localhost:8096/user",
-    				type : "GET",/*
-									 * contentType: "application/json;
-									 * charset=utf-8", dataType: "json",
-									 */
-    				headers : createAuthorizationTokenHeader(),
-    				success : function(data, textStatus, jqXHR) {
-    					if(data!=""){
-    						$scope.allUsers = data;
-        					$scope.message ="";
-    					}else $scope.message = "No data available."
-    				},
-    				
-    			});
-    		}
-
-    		getRequests();
+    		
     		
     		// FUNCTIONS
     		// =============================================================
@@ -73,16 +85,15 @@
 									 */
     				headers : createAuthorizationTokenHeader(),
     				success : function(data, textStatus, jqXHR) {
-    				
-    					},
-    				error: $scope.message = "Error blocking user."
-    				
-    				
+    					refresh();
+    					}
+
     			});
-    			getRequests();
-    			$location.path("/allUsers")
+    			
+    			
     		}
-		
+    		
+    		
  
 
     		function getJwtToken() {
