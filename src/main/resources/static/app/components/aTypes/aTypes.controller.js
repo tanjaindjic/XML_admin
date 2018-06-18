@@ -14,7 +14,8 @@
     		$scope.message = "";
     		$scope.typesOfAcc = [];
     		$scope.loggedIn = false;
-    			
+    		$scope.addNew = false;
+    		
     		var refresh = function(){
     			$state.go($state.current.name, {}, {reload: true})
     		}
@@ -84,8 +85,32 @@
     			});
     			
     		}
-    		
+    		$scope.newEntry = function(){
+    			$scope.addNew = true;
+    		}
     	
+    		$scope.cancel = function(){
+    			$scope.addNew = false;
+    		}
+    		
+    		$scope.add = function(){
+    			if(document.getElementById("newEntry").value.trim()==""){
+    				return;
+    			}
+    			console.log(document.getElementById("newEntry").value)
+    			
+    			$http({
+                method: 'POST',
+                url: "https://localhost:8096/api/tipService/",
+                headers : createAuthorizationTokenHeader(),
+                data: document.getElementById("newEntry").value
+            }).then(function successCallback(response) {
+            	getRequests();
+            });
+	
+    			document.getElementById("newEntry").value="";
+    			$scope.addNew = false;
+    		}
 
     		function getJwtToken() {
     			return localStorage.getItem($scope.TOKEN_KEY);

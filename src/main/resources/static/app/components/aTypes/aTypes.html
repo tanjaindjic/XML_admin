@@ -13,13 +13,29 @@
 		<tr>
 			<td class="equalWidth">Types of Accommodation:</td>
 			<td class="equalWidth">
-				<button>
+				<button ng-click=newEntry()>
 					<img class="clearDelete" src="../../../assets/images/plus.png"
 						width="20" height="20" title="Add" alt="Add" />
 				</button>
 			</td>
 
 		</tr>
+		<p></p>
+		<p></p>
+		<tr ng-show="addNew">
+			<td><input type="text" id="newEntry" class="equalishWidth" placeholder="New Type"></td>
+			<td>	<div><button ng-click="add()"><img class="clearDelete" src="../../../assets/images/check.png" width="20" height="20" title="Add" alt="Add" />
+					</button>
+					<span>             </span>
+				<button ng-click="cancel()"><img class="clearDelete" src="../../../assets/images/cancel.png"
+						width="20" height="20" title="Add" alt="Add" />
+				</button>
+				</div>
+				</td>
+				<p></p>
+				<p></p>
+		</tr>
+		<br>
 		<tr ng-repeat="toc in typesOfAcc">
 			<td class="equalWidth">{{toc.tip}}</td>
 			<td class="equalWidth"><button ng-click="deleteTOC(toc.id)">
