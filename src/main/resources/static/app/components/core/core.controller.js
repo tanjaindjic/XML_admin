@@ -3,8 +3,8 @@
 
 	angular.module('app').controller('coreController', coreController);
 
-	coreController.$inject = [ '$location', '$scope', '$rootScope', '$http', '$cookies', '$window' ];
-	function coreController($location, $scope, $rootScope, $http, $cookies, $window) {
+	coreController.$inject = [ '$location', '$scope', '$rootScope', '$http', '$cookies', '$window', '$state' ];
+	function coreController($location, $scope, $rootScope, $http, $cookies, $window, $state) {
 		var cc = this;
 		$scope.TOKEN_KEY = "jwtToken";
 		$scope.loggedIn = false;
@@ -24,6 +24,7 @@
 			} else{
 			
 				$scope.loggedIn = false;
+				$state.go("core.login", {}, {reload:true})
 			}
 				
 
@@ -35,26 +36,28 @@
 		}
 		
 		$scope.login = function() {
-			$location.path('/login');
+			$state.go("core.login", {}, {reload:false})
 		}
 		
 		$scope.register = function() {
-			$location.path('/register');
+			$state.go("core.register", {}, {reload:false})
 		}
 		
 		$scope.home = function() {
-			$location.path('/home');
+			$state.go("core.home", {}, {reload:false})
 		}
 		
 		
 		$scope.allUsers = function() {
-			$location.path('/allUsers');
-			
+			$state.go("core.allUsers", {}, {reload:false})		
 		}
 		
 		$scope.allComments = function() {
-			$location.path('/allComments');
-			
+			$state.go("core.allComments", {}, {reload:false})			
+		}
+		
+		$scope.catalogs = function() {
+			$state.go("core.catalogs", {}, {reload:false})		
 		}
 		
 		$scope.logout = function(){

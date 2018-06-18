@@ -3,26 +3,26 @@
 
     angular
 		.module('app')
-		.controller('allCommentsController', allCommentsController);
+		.controller('catalogsController', catalogsController);
 
-    allCommentsController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state'];
-    function allCommentsController($location, $scope, $rootScope,$http, $cookies, $window,$state) {
-    	var acc = this;
+    catalogsController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state'];
+    function catalogsController($location, $scope, $rootScope,$http, $cookies, $window,$state) {
+    	var catc = this;
     	
     	$scope.TOKEN_KEY = "jwtToken"
     	
     		$scope.message = "";
-    		$scope.allComments = [];
-    		$scope.loggedIn = false;    		
-    		
+    		$scope.typesOfAcc = [];
+    		$scope.catsOfAcc = [];
+    		$scope.loggedIn = false;
+    			
     		var refresh = function(){
     			$state.go($state.current.name, {}, {reload: true})
     		}
-		
     		var getRequests = function() {
 
     			$.ajax({
-    				url : "https://localhost:8096/comments/unpublished",
+    				url : "https://localhost:8096/api/tipService",
     				type : "GET",/*
 									 * contentType: "application/json;
 									 * charset=utf-8", dataType: "json",
@@ -30,9 +30,26 @@
     				headers : createAuthorizationTokenHeader(),
     				success : function(data, textStatus, jqXHR) {
     					
-    						$scope.allComments = data;
+    						$scope.typesOfAcc = data;
         					$scope.message ="";
-        					console.log($scope.allComments.length)
+        					console.log($scope.typesOfAcc.length)
+    					
+    				}
+    				
+    			});
+    			
+    			$.ajax({
+    				url : "https://localhost:8096/api/kategorija",
+    				type : "GET",/*
+									 * contentType: "application/json;
+									 * charset=utf-8", dataType: "json",
+									 */
+    				headers : createAuthorizationTokenHeader(),
+    				success : function(data, textStatus, jqXHR) {
+    					
+    						$scope.catsOfAcc = data;
+        					$scope.message ="";
+        					console.log($scope.catsOfAcc.length)
     					
     				}
     				
@@ -49,7 +66,7 @@
     				
     				$scope.loggedIn = true;
     			} else {
-    				
+    			
     				$location.path("/login")
     				$scope.loggedIn= false;
     			}
@@ -67,26 +84,9 @@
 
     		
     
-    		$scope.publish = function(id){
+    		$scope.deleteTOC = function(id){
     			$.ajax({
-    				url : "https://localhost:8096/comments/publish/" + id,
-    				type : "GET",/*
-									 * contentType: "application/json;
-									 * charset=utf-8", dataType: "json",
-									 */
-    				headers : createAuthorizationTokenHeader(),
-    				success : function(data, textStatus, jqXHR) {
-    					refresh();
-    					}
-
-    			});
-    			
-    		}
-    		
-
-    		$scope.deleteCom = function(id){
-    			$.ajax({
-    				url : "https://localhost:8096/comments/" + id,
+    				url : "https://localhost:8096/api/tipService/" + id,
     				type : "DELETE",/*
 									 * contentType: "application/json;
 									 * charset=utf-8", dataType: "json",
@@ -98,7 +98,9 @@
 
     			});
     			
+    			
     		}
+    		
     		
  
 

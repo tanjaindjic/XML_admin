@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/h2-console/**/**").permitAll()
 
             .antMatchers("/auth/**").permitAll()
+            .antMatchers("/resources/**").permitAll()
             .anyRequest().authenticated();
 
         // disable page caching
@@ -64,13 +65,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**/*.html",
                 "/**/*.css",
                 "/**/*.js",
+                "/**/*.png",
                 "/register", 
                 "/success", 
                 "/confirm/**",
-                "/success/**",
-                "/requests",
-                "/authority",
-                "/user" //OVO NE MOZE OVAKO SAMO ZA TEST!
+                "/success/**"
             )
 
             // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)

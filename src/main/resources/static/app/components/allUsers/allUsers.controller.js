@@ -5,21 +5,18 @@
 		.module('app')
 		.controller('allUsersController', allUsersController);
 
-    allUsersController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window'];
-    function allUsersController($location, $scope, $rootScope,$http, $cookies, $window) {
+    allUsersController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state'];
+    function allUsersController($location, $scope, $rootScope,$http, $cookies, $window,$state) {
     	var auc = this;
     	
     	$scope.TOKEN_KEY = "jwtToken"
     	
     		$scope.message = "";
     		$scope.allUsers = [];
-    		$scope.loggedIn = false;
-    		
-    		
+    		$scope.loggedIn = false;    		
     		
     		var refresh = function(){
-    			getRequests();
-    			$location.path("/allUsers");
+    			$state.go($state.current.name, {}, {reload: true})
     		}
 		
     		var getRequests = function() {

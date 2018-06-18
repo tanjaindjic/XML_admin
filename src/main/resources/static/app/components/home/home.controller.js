@@ -5,14 +5,12 @@
 		.module('app')
 		.controller('homeController', homeController);
 
-    homeController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window'];
-    function homeController($location, $scope, $rootScope,$http, $cookies, $window) {
+    homeController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state'];
+    function homeController($location, $scope, $rootScope,$http, $cookies, $window, $state) {
     	var hc = this;
     	
     	$scope.TOKEN_KEY = "jwtToken"
-    		$scope.reg = $("#registerBtn");
-    		$scope.logout = $("#logoutBtn");
-    		$scope.req = $("requestsBtn");
+    	
     		$scope.message = "";
     		$scope.allRequests = [];
     		$scope.loggedIn = false;
@@ -22,14 +20,10 @@
     			// INITIAL CALLS
     			// =============================================================
     			if (getJwtToken()) {
-    				$scope.logout.show();
-    				$scope.reg.show();
-    				$scope.req.show();
+    				
     				$scope.loggedIn = true;
     			} else {
-    				$scope.logout.hide();
-    				$scope.reg.hide();
-    				$scope.req.hide();
+    			
     				$location.path("/login")
     				$scope.loggedIn= false;
     			}
@@ -105,8 +99,7 @@
     				}
     			});
 
-    			$location.path("/home")
-
+    			$state.go($state.current.name, {}, {reload: true})
     		}
     		
     		$scope.approve = function(req_id, k_id){

@@ -38,6 +38,12 @@
 			 controller: 'allCommentsController',
 			 controllerAs: 'acc'
 		 })
+		 .state('core.catalogs', {
+			 url: 'catalogs',
+			 templateUrl: 'app/components/catalogs/catalogs.html',
+			 controller: 'catalogsController',
+			 controllerAs: 'catc'
+		 })
 		 .state('core.allUsers', {
 			 url: 'allUsers',
 			 templateUrl: 'app/components/allUsers/allUsers.html',
