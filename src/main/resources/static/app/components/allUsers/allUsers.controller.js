@@ -100,14 +100,6 @@
     			return localStorage.getItem($scope.TOKEN_KEY);
     		}
 
-    		function doLogout() {
-    			removeJwtToken();
-    			$scope.logout.hide();
-    			$scope.reg.hide();
-    			$scope.req.hide();
-    			$scope.loggedIn=false;
-    			$location.path("/home")
-    		}
 
     		function removeJwtToken() {
     			localStorage.removeItem($scope.TOKEN_KEY);
@@ -124,7 +116,7 @@
     			}
     		}
 
-    		$("#logoutBtn").click(doLogout);
+    		
 
     	}
 

@@ -7,8 +7,6 @@
 	function coreController($location, $scope, $rootScope, $http, $cookies, $window) {
 		var cc = this;
 		$scope.TOKEN_KEY = "jwtToken";
-		$scope.logout = $("#logoutBtn");
-		$scope.reg = $("#registerBtn");
 		$scope.loggedIn = false;
 		$scope.username = "";
 		
@@ -20,13 +18,11 @@
 		var init = function() {
 
 			if (getJwtToken()) {
-				$scope.logout.show();
-				$scope.reg.show();
+				
 				$scope.loggedIn = true;
 				$scope.username = " " +jwt_decode(getJwtToken()).sub;
 			} else{
-				$scope.logout.hide();
-				$scope.reg.hide();
+			
 				$scope.loggedIn = false;
 			}
 				
@@ -58,11 +54,9 @@
 		
 		$scope.logout = function(){
 			removeJwtToken();
-			$scope.logout.hide();
-			$scope.reg.hide();
 			$scope.loggedIn = false;
-			
-			$location.path("/login")
+			$scope.username="";
+			$window.location="https://localhost:8090/#!/login"
 		}
 
 	}

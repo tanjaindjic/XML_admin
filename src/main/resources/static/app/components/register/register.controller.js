@@ -67,11 +67,7 @@
 
 		}
 
-		function doLogout() {
-			removeJwtToken();
-			$scope.loggedIn = false;
-			$location.path("/home")
-		}
+		
 
 		function createAuthorizationTokenHeader() {
 			var token = getJwtToken();
@@ -111,7 +107,7 @@
 			doRegister(formData);
 		});
 
-		$("#logoutBtn").click(doLogout);
+		
 
 	}
 
