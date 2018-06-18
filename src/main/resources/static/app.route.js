@@ -32,6 +32,12 @@
 			 controller: 'registerController',
 			 controllerAs: 'regc'
 		 })
+		 .state('core.allComments', {
+			 url: 'allComments',
+			 templateUrl: 'app/components/allComments/allComments.html',
+			 controller: 'allCommentsController',
+			 controllerAs: 'acc'
+		 })
 		 .state('core.allUsers', {
 			 url: 'allUsers',
 			 templateUrl: 'app/components/allUsers/allUsers.html',

@@ -52,6 +52,11 @@
 			
 		}
 		
+		$scope.allComments = function() {
+			$location.path('/allComments');
+			
+		}
+		
 		$scope.logout = function(){
 			removeJwtToken();
 			$scope.loggedIn = false;

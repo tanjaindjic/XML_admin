@@ -3,29 +3,29 @@
 
     angular
 		.module('app')
-		.controller('allUsersController', allUsersController);
+		.controller('allCommentsController', allCommentsController);
 
-    allUsersController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window'];
-    function allUsersController($location, $scope, $rootScope,$http, $cookies, $window) {
-    	var auc = this;
+    allCommentsController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window'];
+    function allCommentsController($location, $scope, $rootScope,$http, $cookies, $window) {
+    	var acc = this;
     	
     	$scope.TOKEN_KEY = "jwtToken"
     	
     		$scope.message = "";
-    		$scope.allUsers = [];
+    		$scope.allComments = [];
     		$scope.loggedIn = false;
     		
     		
     		
     		var refresh = function(){
     			getRequests();
-    			$location.path("/allUsers");
+    			$location.path("/allComments");
     		}
 		
     		var getRequests = function() {
 
     			$.ajax({
-    				url : "https://localhost:8096/user",
+    				url : "https://localhost:8096/comments/unpublished",
     				type : "GET",/*
 									 * contentType: "application/json;
 									 * charset=utf-8", dataType: "json",
@@ -33,9 +33,9 @@
     				headers : createAuthorizationTokenHeader(),
     				success : function(data, textStatus, jqXHR) {
     					
-    						$scope.allUsers = data;
+    						$scope.allComments = data;
         					$scope.message ="";
-        					console.log($scope.allUsers.length)
+        					console.log($scope.allComments.length)
     					
     				}
     				
@@ -52,7 +52,7 @@
     				
     				$scope.loggedIn = true;
     			} else {
-    			
+    				
     				$location.path("/login")
     				$scope.loggedIn= false;
     			}
@@ -70,9 +70,9 @@
 
     		
     
-    		$scope.block = function(id){
+    		$scope.publish = function(id){
     			$.ajax({
-    				url : "https://localhost:8096/user/block/" + id,
+    				url : "https://localhost:8096/comments/publish/" + id,
     				type : "GET",/*
 									 * contentType: "application/json;
 									 * charset=utf-8", dataType: "json",
@@ -84,9 +84,26 @@
 
     			});
     			
-    			
+    			refresh();
     		}
     		
+
+    		$scope.deleteCom = function(id){
+    			$.ajax({
+    				url : "https://localhost:8096/comments/" + id,
+    				type : "DELETE",/*
+									 * contentType: "application/json;
+									 * charset=utf-8", dataType: "json",
+									 */
+    				headers : createAuthorizationTokenHeader(),
+    				success : function(data, textStatus, jqXHR) {
+    					refresh();
+    					}
+
+    			});
+    			
+    			refresh();
+    		}
     		
  
 

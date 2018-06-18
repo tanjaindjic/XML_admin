@@ -1,0 +1,33 @@
+<style>
+ul {
+	list-style-type: none;
+}
+</style>
+<div>
+	<table>
+		<tr>
+			<td><b>UNPUBLISHED COMMENTS : {{allComments.length}}</b></td>
+		</tr>
+		<tr>
+			<td>{{message}}
+		</tr>
+		<tr ng-repeat="c in allComments">
+			<td id="td{{c.id}}" width="50%">
+				<ul>
+					<li><b>By:</b> {{c.rezervacija.rezervisao.firstName}} {{c.rezervacija.rezervisao.lastName}}</li>	
+					<li><b>For:</b> {{c.rezervacija.smestaj.naziv}}</li>
+					<li><b>Content:</b> {{c.tekst}}</li>
+				
+				
+
+					<li><p></p>
+						<button ng-click="publish(c.id)" >Publish</button><span>      </span>
+						<button ng-click="deleteCom(c.id)">Delete</button>
+					</li>
+					<li>_____________________________________________</li>
+				</ul>
+			</td>
+
+		</tr>
+	</table>
+</div>
