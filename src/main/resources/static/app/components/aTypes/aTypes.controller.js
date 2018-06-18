@@ -3,17 +3,16 @@
 
     angular
 		.module('app')
-		.controller('catalogsController', catalogsController);
+		.controller('aTypesController', aTypesController);
 
-    catalogsController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state'];
-    function catalogsController($location, $scope, $rootScope,$http, $cookies, $window,$state) {
-    	var catc = this;
+    aTypesController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state', '$timeout'];
+    function aTypesController($location, $scope, $rootScope,$http, $cookies, $window,$state, $timeout) {
+    	var ac = this;
     	
     	$scope.TOKEN_KEY = "jwtToken"
     	
     		$scope.message = "";
     		$scope.typesOfAcc = [];
-    		$scope.catsOfAcc = [];
     		$scope.loggedIn = false;
     			
     		var refresh = function(){
@@ -31,29 +30,14 @@
     				success : function(data, textStatus, jqXHR) {
     					
     						$scope.typesOfAcc = data;
+    						$timeout(function(){ $scope.$apply(); }, 150);
         					$scope.message ="";
         					console.log($scope.typesOfAcc.length)
     					
     				}
     				
     			});
-    			
-    			$.ajax({
-    				url : "https://localhost:8096/api/kategorija",
-    				type : "GET",/*
-									 * contentType: "application/json;
-									 * charset=utf-8", dataType: "json",
-									 */
-    				headers : createAuthorizationTokenHeader(),
-    				success : function(data, textStatus, jqXHR) {
-    					
-    						$scope.catsOfAcc = data;
-        					$scope.message ="";
-        					console.log($scope.catsOfAcc.length)
-    					
-    				}
-    				
-    			});
+    	
     		}
 
     		
@@ -93,16 +77,15 @@
 									 */
     				headers : createAuthorizationTokenHeader(),
     				success : function(data, textStatus, jqXHR) {
-    					refresh();
+    					getRequests();
+
     					}
 
     			});
     			
-    			
     		}
     		
-    		
- 
+    	
 
     		function getJwtToken() {
     			return localStorage.getItem($scope.TOKEN_KEY);

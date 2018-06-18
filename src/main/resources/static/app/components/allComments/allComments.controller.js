@@ -5,8 +5,8 @@
 		.module('app')
 		.controller('allCommentsController', allCommentsController);
 
-    allCommentsController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state'];
-    function allCommentsController($location, $scope, $rootScope,$http, $cookies, $window,$state) {
+    allCommentsController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state','$timeout'];
+    function allCommentsController($location, $scope, $rootScope,$http, $cookies, $window,$state,$timeout) {
     	var acc = this;
     	
     	$scope.TOKEN_KEY = "jwtToken"
@@ -31,6 +31,8 @@
     				success : function(data, textStatus, jqXHR) {
     					
     						$scope.allComments = data;
+
+    						$timeout(function(){ $scope.$apply(); }, 150);
         					$scope.message ="";
         					console.log($scope.allComments.length)
     					
@@ -76,7 +78,7 @@
 									 */
     				headers : createAuthorizationTokenHeader(),
     				success : function(data, textStatus, jqXHR) {
-    					refresh();
+    					getRequests();
     					}
 
     			});

@@ -5,8 +5,8 @@
 		.module('app')
 		.controller('homeController', homeController);
 
-    homeController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state'];
-    function homeController($location, $scope, $rootScope,$http, $cookies, $window, $state) {
+    homeController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state','$timeout'];
+    function homeController($location, $scope, $rootScope,$http, $cookies, $window, $state, $timeout) {
     	var hc = this;
     	
     	$scope.TOKEN_KEY = "jwtToken"
@@ -44,6 +44,7 @@
     				success : function(data, textStatus, jqXHR) {
     					if(data!=""){
     						$scope.allRequests = data;
+    						$timeout(function(){ $scope.$apply(); }, 150);
         					$scope.message ="";
     					}else $scope.message = "No data available."
     				},

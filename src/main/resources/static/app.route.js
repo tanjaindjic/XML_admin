@@ -38,11 +38,23 @@
 			 controller: 'allCommentsController',
 			 controllerAs: 'acc'
 		 })
-		 .state('core.catalogs', {
-			 url: 'catalogs',
-			 templateUrl: 'app/components/catalogs/catalogs.html',
-			 controller: 'catalogsController',
-			 controllerAs: 'catc'
+		 .state('core.extraServices', {
+			 url: 'extraServices',
+			 templateUrl: 'app/components/extraServices/extraServices.html',
+			 controller: 'extraServicesController',
+			 controllerAs: 'xsc'
+		 })
+		 .state('core.aTypes', {
+			 url: 'aTypes',
+			 templateUrl: 'app/components/aTypes/aTypes.html',
+			 controller: 'aTypesController',
+			 controllerAs: 'ac'
+		 })
+		 .state('core.accomCategories', {
+			 url: 'accomCategories',
+			 templateUrl: 'app/components/accomCategories/accomCategories.html',
+			 controller: 'accomCategoriesController',
+			 controllerAs: 'accomcc'
 		 })
 		 .state('core.allUsers', {
 			 url: 'allUsers',

@@ -1,27 +1,95 @@
+<style>
+#coreHeader {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+   
+}
+
+.liHeader {
+    float: left;
+   
+}
+
+.liHeader a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+   
+}
+
+.liHeader a:hover, .dropdown:hover .dropbtn {
+    background-color: olive;
+   
+}
+
+li.dropdown {
+    display: inline-block;
+   
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+   
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+   
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;
+cursor: hand;}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+   
+}
+</style>
 <div width='100%'>
-	<table width='100%'>
-		<tr>
-			<td class='heading'>PigInc. BOOKING Admin Section</td>
-			<td class='buttonsTDP'>
-				<button class='buttonR' id="homeBtn" ng-click="home()"
-					ng-show="loggedIn">Requests</button>
-				<button class='buttonR' id="usersBtn" ng-click="allUsers()"
-					ng-show="loggedIn">Users</button>
-				<button class='buttonR' id="commentsBtn" ng-click="allComments()"
-					ng-show="loggedIn">Comments</button>
-				<button class='buttonR' id="registerBtn" ng-click="register()"
-					ng-show="loggedIn">New Agent</button>
-				<button class='buttonR' id="catalogsBtn" ng-click="catalogs()"
-					ng-show="loggedIn">Catalogs</button>
-				<button class='buttonR' ng-click="logout()" id="logoutBtn"
-					ng-show="loggedIn">Log Out</button>
-			</td>
-		</tr>
-	</table>
-	<hr />
+
+	<div> <p class='heading'>PigInc. BOOKING Admin Section</p>
 	<label>Hello{{username}}! Welcome to Admin section!</label><br>
 	<hr />
-
+	</div>
+	
+<ul id="coreHeader">
+  
+  <li class="liHeader"><a ng-click="allComments()" ng-show="loggedIn">COMMENTS</a></li>
+  <li class="dropdown liHeader">
+    <a href="javascript:void(0)" class="dropbtn"  ng-show="loggedIn">USERS</a>
+    <div class="dropdown-content">
+      <a ng-click="home()">Requests</a>
+      <a ng-click="register()" >New Agent</a>
+      <a  ng-click="allUsers()" >All Users</a>
+    </div>
+  <li class="dropdown liHeader">
+    <a href="javascript:void(0)" class="dropbtn"  ng-show="loggedIn">ACCOMODATION CATALOGS</a>
+    <div class="dropdown-content">
+      <a ng-click="aTypes()">Types</a>
+      <a  ng-click="accomCategories()">Categories</a>
+      <a  ng-click="extraServices()">Extra Services</a>
+    </div>
+  <li class="liHeader"><a  ng-show="loggedIn">LOG OUT</a></li>
+  </li>
+</ul>
+	
+	
+	
+<br>
 	<table>
 		<div>
 			<ui-view> </ui-view>

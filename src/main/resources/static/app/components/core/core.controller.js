@@ -56,8 +56,16 @@
 			$state.go("core.allComments", {}, {reload:false})			
 		}
 		
-		$scope.catalogs = function() {
-			$state.go("core.catalogs", {}, {reload:false})		
+		$scope.aTypes = function() {
+			$state.go("core.aTypes", {}, {reload:false})		
+		}
+		
+		$scope.accomCategories = function() {
+			$state.go("core.accomCategories", {}, {reload:false})		
+		}
+		
+		$scope.extraServices = function() {
+			$state.go("core.extraServices", {}, {reload:false})		
 		}
 		
 		$scope.logout = function(){

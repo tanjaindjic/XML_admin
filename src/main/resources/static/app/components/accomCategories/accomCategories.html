@@ -1,0 +1,33 @@
+<style>
+#catalogs {
+	width: 400px;
+}
+
+.equalWidth {
+	width: 100%;
+}
+</style>
+
+<div id="catalogs">
+	<h2>EDIT ACCOMODATION CATEGORIES</h2>
+
+	<table class="equalWidth">
+		<tr>
+			<td class="equalWidth">Categories of Accommodation:</td>
+			<td class="equalWidth">
+				<button>
+					<img class="clearDelete" src="../../../assets/images/plus.png"
+						width="20" height="20" title="Add" alt="Add" />
+				</button>
+			</td>
+
+		</tr>
+		<tr ng-repeat="cat in catsOfAcc">
+			<td class="equalWidth">{{cat.kategorija}}</td>
+			<td class="equalWidth"><button ng-click="deleteCat(cat.id)">
+					<img class="clearDelete" src="../../../assets/images/trash.png"
+						width="20" height="20" title="Delete" alt="Delete" />
+				</button></td>
+		</tr>
+	</table>
+</div>

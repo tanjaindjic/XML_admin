@@ -3,26 +3,26 @@
 
     angular
 		.module('app')
-		.controller('allUsersController', allUsersController);
+		.controller('extraServicesController', extraServicesController);
 
-    allUsersController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state', '$timeout'];
-    function allUsersController($location, $scope, $rootScope,$http, $cookies, $window,$state, $timeout) {
-    	var auc = this;
+    extraServicesController.$inject = ['$location', '$scope', '$rootScope','$http', '$cookies', '$window','$state', '$timeout'];
+    function extraServicesController($location, $scope, $rootScope,$http, $cookies, $window,$state, $timeout) {
+    	var xsc = this;
     	
     	$scope.TOKEN_KEY = "jwtToken"
     	
     		$scope.message = "";
-    		$scope.allUsers = [];
-    		$scope.loggedIn = false;    		
-    		
+    		$scope.services = [];
+    		$scope.catsOfAcc = [];
+    		$scope.loggedIn = false;
+    			
     		var refresh = function(){
     			$state.go($state.current.name, {}, {reload: true})
     		}
-		
     		var getRequests = function() {
 
     			$.ajax({
-    				url : "https://localhost:8096/user",
+    				url : "https://localhost:8096/api/dodatneUsluge",
     				type : "GET",/*
 									 * contentType: "application/json;
 									 * charset=utf-8", dataType: "json",
@@ -30,14 +30,16 @@
     				headers : createAuthorizationTokenHeader(),
     				success : function(data, textStatus, jqXHR) {
     					
-    						$scope.allUsers = data;
+    						$scope.services = data;
     						$timeout(function(){ $scope.$apply(); }, 150);
         					$scope.message ="";
-        					console.log($scope.allUsers.length)
+        					console.log($scope.services.length)
     					
     				}
     				
     			});
+    			
+    		
     		}
 
     		
@@ -68,26 +70,23 @@
 
     		
     
-    		$scope.block = function(id){
+    		$scope.deleteXS = function(id){
     			$.ajax({
-    				url : "https://localhost:8096/user/block/" + id,
-    				type : "GET",/*
+    				url : "https://localhost:8096/api/dodatneUsluge/" + id,
+    				type : "DELETE",/*
 									 * contentType: "application/json;
 									 * charset=utf-8", dataType: "json",
 									 */
     				headers : createAuthorizationTokenHeader(),
     				success : function(data, textStatus, jqXHR) {
     					getRequests();
-
     					}
 
     			});
     			
-    			
     		}
     		
     		
- 
 
     		function getJwtToken() {
     			return localStorage.getItem($scope.TOKEN_KEY);
