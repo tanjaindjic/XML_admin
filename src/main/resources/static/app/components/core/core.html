@@ -67,8 +67,8 @@ cursor: hand;}
 	</div>
 	
 <ul id="coreHeader">
+  <li class="liHeader"><a ng-click="certificate()" ng-show="loggedIn">CERTIFICATES</a></li>
   
-  <li class="liHeader"><a ng-click="allComments()" ng-show="loggedIn">COMMENTS</a></li>
   <li class="dropdown liHeader">
     <a href="javascript:void(0)" class="dropbtn"  ng-show="loggedIn">USERS</a>
     <div class="dropdown-content">
@@ -76,6 +76,7 @@ cursor: hand;}
       <a ng-click="register()" >New Agent</a>
       <a  ng-click="allUsers()" >All Users</a>
     </div>
+    <li class="liHeader"><a ng-click="allComments()" ng-show="loggedIn">COMMENTS</a></li>
   <li class="dropdown liHeader">
     <a href="javascript:void(0)" class="dropbtn"  ng-show="loggedIn">ACCOMODATION CATALOGS</a>
     <div class="dropdown-content">

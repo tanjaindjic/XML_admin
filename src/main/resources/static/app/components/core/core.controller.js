@@ -68,6 +68,10 @@
 			$state.go("core.extraServices", {}, {reload:false})		
 		}
 		
+		$scope.certificate = function() {
+			$state.go("core.certificate", {}, {reload:false})		
+		}
+		
 		$scope.logout = function(){
 			removeJwtToken();
 			$scope.loggedIn = false;

@@ -20,6 +20,12 @@
 			 controller: 'homeController',
 			 controllerAs: 'hc'
 		 })
+		 .state('core.certificate', {
+			 url: 'certificate',
+			 templateUrl: 'app/components/certificate/certificate.html',
+			 controller: 'certificateController',
+			 controllerAs: 'crc'
+		 })
 		 .state('core.login', {
 			 url: 'login',
 			 templateUrl: 'app/components/login/login.html',

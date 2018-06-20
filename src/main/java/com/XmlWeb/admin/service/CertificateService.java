@@ -80,6 +80,7 @@ public class CertificateService {
         SubjectData sd = newSubjectData(certificateDTO);
         IssuerData id = newIssuerData(certificateDTO);
 
+        
         System.out.println("Napravljeni sub i issuer data ,cuvam cert");
         CertificateGenerator generator = new CertificateGenerator();
         X509Certificate certificate = null;
@@ -88,7 +89,9 @@ public class CertificateService {
         } catch (CertIOException e) {
             e.printStackTrace();
         }
-        keyStoreService.writeCertificate(certificateDTO.getisCa(), certificate, certificateDTO.getCommonName(), sd.getPrivateKey());
+        //nema razloga da cuvam ovde bilo sta
+        if(certificateDTO.getIssuerSerialNumber()=="" || certificateDTO.getIssuerSerialNumber()==null)
+        	keyStoreService.writeCertificate(certificateDTO.getisCa(), certificate, certificateDTO.getCommonName(), sd.getPrivateKey());
 
         return certificate;
     }
@@ -334,7 +337,6 @@ public class CertificateService {
 	       dto.setOrgName(getX500Field(BCStyle.O, x500Name));
 	       dto.setOrgNameUnit(getX500Field(BCStyle.OU, x500Name));
 	       dto.setCountry(getX500Field(BCStyle.C, x500Name));
-	       System.out.println(keyStoreService.getCertificates());
 	       IssuerData d = keyStoreService.readIssuerFromStore("admin");
 	       dto.setIssuerSerialNumber(getX500Field(BCStyle.UID, d.getX500name()));
 	       System.out.println("Gotov dto pravim issuer i sub data");
