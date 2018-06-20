@@ -44,6 +44,7 @@
     				success : function(data, textStatus, jqXHR) {
     					if(data!=""){
     						$scope.allRequests = data;
+    						console.log(data);
     						$timeout(function(){ $scope.$apply(); }, 150);
         					$scope.message ="";
     					}else $scope.message = "No data available."
@@ -103,7 +104,18 @@
     			$state.go($state.current.name, {}, {reload: true})
     		}
     		
-    		$scope.approve = function(req_id, k_id){
+    		$scope.approve = function(req_id, k_id, csr){
+    			console.log(document.getElementById(req_id+"csr").value)
+    			$http({
+                method: 'POST',
+                url: "https://localhost:8090/generateCrt/req/" + req_id + "/user/"+ k_id, 
+                headers : createAuthorizationTokenHeader(),
+                data: csr
+            }).then(function successCallback(response) {
+            	if(response.data!="")
+            		$scope.message="Success!"
+            	getRequests();
+            });
     			var i;
     			for (i = 0; i < $scope.allRequests.length; i++) {
     				if ($scope.allRequests[i].csrId === req_id) {
@@ -111,24 +123,29 @@
     				}
     			}
     			$scope.allRequests.splice(i, 1);
-    			console.log("prihvata reqId: " + req_id + ", userId: " + k_id)
-    			var header = createAuthorizationTokenHeader();
+    			console.log("prihvata reqId: " + req_id + ", userId: " + k_id);
 
-    			$.ajax({
-    				url : "https://localhost:8096/requests/" + req_id + "/user/"
-    						+ k_id,
-    				type : "GET",
-    				contentType : "application/json; charset=utf-8",
-    				dataType : "json",
-    				headers : createAuthorizationTokenHeader(),
-    				success : function(data, textStatus, jqXHR) {
-    					$scope.message = "Request successfully approved."
-    				},
-    				error : function(data, textStatus, jqXHR) {
-    					$scope.message = "Error. Request was not approved :(."
-    				}
-    			});
 
+    			
+	    		/*var headerDict = {
+				  'Content-Type': 'text/plain',
+				  'Accept': 'text/plain',
+				  'Access-Control-Allow-Headers': 'Content-Type',
+				  createAuthorizationTokenHeader(),
+    			};
+    			*/
+    			//OVDE TRAZI JSON DOBAR A KAZE DA JE LOS FORMAT
+    			/*$http({
+                method: 'POST',
+                url: "https://localhost:8096/requests/" + req_id + "/user/"+ k_id,              
+                headers: createAuthorizationTokenHeader(),
+    			data: $scope.crt
+            }).then(function successCallback(response) {
+            	console.log("poslao na servier")
+            });
+    			*/
+
+    				
     			$location.path("/home")
 
     		}
