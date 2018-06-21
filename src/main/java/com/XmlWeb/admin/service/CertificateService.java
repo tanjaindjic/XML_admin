@@ -71,9 +71,12 @@ public class CertificateService {
     
     public X509Certificate generateCertificate(CertificateDTO certificateDTO) {
         // Serijski broj sertifikata
+    	
         int randomNum = 0 + (int) (Math.random() * 10000000);
         String sn = String.valueOf(randomNum);
-        certificateDTO.setSerialNumber(sn);
+        if(!certificateDTO.getisCa())
+        	certificateDTO.setSerialNumber(sn);
+       
         System.out.println("provera issuera");
         System.out.println("issuer serial num: " + certificateDTO.getIssuerSerialNumber());
         keyPair = generateKeyPair();
@@ -85,13 +88,12 @@ public class CertificateService {
         CertificateGenerator generator = new CertificateGenerator();
         X509Certificate certificate = null;
         try {
-            certificate = generator.generateCertificate(sd, id, certificateDTO.getisCa(), certificateDTO.getIssuerSerialNumber());
+            certificate = generator.generateCertificate(sd, id, certificateDTO.getisCa(), certificateDTO.getCommonName());
         } catch (CertIOException e) {
             e.printStackTrace();
         }
         //nema razloga da cuvam ovde bilo sta
-        if(certificateDTO.getIssuerSerialNumber()=="" || certificateDTO.getIssuerSerialNumber()==null)
-        	keyStoreService.writeCertificate(certificateDTO.getisCa(), certificate, certificateDTO.getCommonName(), sd.getPrivateKey());
+        keyStoreService.writeCertificate(certificateDTO.getisCa(), certificate, certificateDTO.getCommonName(), sd.getPrivateKey());
 
         return certificate;
     }
@@ -305,7 +307,7 @@ public class CertificateService {
 		
 	}
     
-    private String getX500Field(ASN1ObjectIdentifier asn1ObjectIdentifier, X500Name x500Name) {
+    public String getX500Field(ASN1ObjectIdentifier asn1ObjectIdentifier, X500Name x500Name) {
 	    RDN[] rdnArray = x500Name.getRDNs(asn1ObjectIdentifier);
 
 	    String retVal = null;

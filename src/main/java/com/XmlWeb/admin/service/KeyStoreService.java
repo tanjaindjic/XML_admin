@@ -271,7 +271,17 @@ public class KeyStoreService {
     }
 
 
-
+    public void addCertToStore(X509Certificate c, String username, int store) {
+    	try {
+			keyStore.setCertificateEntry(username, c);
+		} catch (KeyStoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	if(store==0)
+    		saveKeyStore(PATH_CA, PASSWORD_CA.toCharArray());
+    	else saveKeyStore(PATH_NONCA, PASSWORD_NONCA.toCharArray());
+    }
 
     
     public void loadKeyStore(String keyStoreFile, String keyStorePassword) {

@@ -3,10 +3,13 @@ package com.XmlWeb.admin;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import com.XmlWeb.admin.security.CertificateDTO;
-import com.XmlWeb.admin.security.IssuerData;
 import com.XmlWeb.admin.service.CertificateService;
 import com.XmlWeb.admin.service.KeyStoreService;
 
@@ -24,7 +27,10 @@ public class StartData {
 		kss.createKeyStores();
 		kss.loadKeyStore("ksCa.jks", "passwordCa");
 		kss.loadKeyStore("ksNonCa.jks", "passwordNonCa");
-		//kss.readIssuerFromStore("admin");
+		
+		
+		
+		/*//kss.readIssuerFromStore("admin");
 		// System.out.println(kss.getCertificates());
 	
 		CertificateDTO dto = new CertificateDTO();
@@ -41,7 +47,7 @@ public class StartData {
 		dto.setOrgNameUnit("Admin Sector");
 		dto.setPIB("");
 		dto.setAdresa("");
-		cs.generateCertificate(dto);
+		cs.generateCertificate(dto);*/
 		
 		
 	}

@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/h2-console/**/**").permitAll()
 
             .antMatchers("/auth/**").permitAll()
+            .antMatchers("/getAdminCerts").permitAll()
             .antMatchers("/resources/**").permitAll()
             .anyRequest().authenticated();
 
@@ -70,6 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/success", 
                 "/confirm/**",
                 "/success/**"
+                ,"/getAdminCerts"
             )
 
             // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)

@@ -17,19 +17,30 @@
 			});
 		}
 
+		$scope.getAdminCerts = function(){
+			$http({
+                method: 'GET',
+                url: 'https://localhost:8090/getAdminCerts',
+                headers: createAuthorizationTokenHeader()
+              }).then(function successCallback(response) {
+	            	console.log("uzeo certs")
+	            	$location.path("/home")
+	            }, function errorCallback(response) {
+	            	console.log("nije uzeo certs")
+	            });    
+              
+		}
+		
 		var init = function() {
 			$scope.TOKEN_KEY = "jwtToken"
-			$scope.req = $("#requestsBtn");
-			$scope.login = $("#loginBtn");
-			$scope.reg = $("#registerBtn");
-			$scope.logout = $("#logoutBtn");
+			
 			$scope.loggedIn = false;
 
 			// INITIAL CALLS
 			// =============================================================
 			if (getJwtToken()) {
 				$scope.loggedIn = true;
-				$location.path("/home")
+				$scope.getAdminCerts();
 			}else{
 				
 				$scope.loggedIn = false;
@@ -41,6 +52,8 @@
 
 		// FUNCTIONS
 		// =============================================================
+		
+		
 		function getJwtToken() {
 			return localStorage.getItem($scope.TOKEN_KEY);
 		}
@@ -62,10 +75,7 @@
 	            }).then(function successCallback(response) {
 	            	console.log(response.data.token)
 	            	setJwtToken(response.data.token);
-					$scope.login.hide();
-					$scope.logout.show();
-					$scope.reg.show();
-					$scope.req.show();
+					
 					
 					$window.location.reload();
 			
