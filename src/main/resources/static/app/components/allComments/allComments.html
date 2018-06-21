@@ -14,15 +14,15 @@ ul {
 		<tr ng-repeat="c in allComments">
 			<td id="td{{c.id}}" width="50%">
 				<ul>
-					<li><b>By:</b> {{c.rezervacija.rezervisao.firstName}} {{c.rezervacija.rezervisao.lastName}}</li>	
-					<li><b>For:</b> {{c.rezervacija.smestaj.naziv}}</li>
-					<li><b>Content:</b> {{c.tekst}}</li>
+					<li><b>By:</b> {{c.userName}}</li>	
+					<li><b>For:</b> {{c.smestajId}}</li>
+					<li><b>Content:</b> {{c.comment}}</li>
 				
 				
 
 					<li><p></p>
-						<button ng-click="publish(c.id)" >Publish</button><span>      </span>
-						<button ng-click="deleteCom(c.id)">Delete</button>
+						<button ng-click="publish(c.userId, c.rezervacijaId)" >Publish</button><span>      </span>
+						<button ng-click="deleteCom(c.userId, c.rezervacijaId)">Delete</button>
 					</li>
 					<li>_____________________________________________</li>
 				</ul>

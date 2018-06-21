@@ -22,12 +22,8 @@
     		var getRequests = function() {
 
     			$.ajax({
-    				url : "https://localhost:8096/comments/unpublished",
-    				type : "GET",/*
-									 * contentType: "application/json;
-									 * charset=utf-8", dataType: "json",
-									 */
-    				headers : createAuthorizationTokenHeader(),
+    				url : "https://us-central1-xmlcoment.cloudfunctions.net/getUnpublishedReviews?smestajId=0",
+    				type : "GET",
     				success : function(data, textStatus, jqXHR) {
     					
     						$scope.allComments = data;
@@ -35,6 +31,7 @@
     						$timeout(function(){ $scope.$apply(); }, 150);
         					$scope.message ="";
         					console.log($scope.allComments.length)
+        				//	refresh();
     					
     				}
     				
@@ -69,36 +66,50 @@
 
     		
     
-    		$scope.publish = function(id){
-    			$.ajax({
-    				url : "https://localhost:8096/comments/publish/" + id,
-    				type : "GET",/*
-									 * contentType: "application/json;
-									 * charset=utf-8", dataType: "json",
-									 */
-    				headers : createAuthorizationTokenHeader(),
-    				success : function(data, textStatus, jqXHR) {
-    					getRequests();
-    					}
+    		$scope.publish = function(userId,rezervacijaId){
+    			console.log("comment " + userId)
+    			var data =
+    			{
+    					"userId":userId,
+    					"rezervacijaId":rezervacijaId,
+    					"comment":"Iz clouda",
+    					"approved":"1",
+    					"ocena":0,
+    					"smestajId":4,
+    					"userName":"username3"
+    					
+    				};
+    			
+    			$http({
+                    method: 'POST',
+                    url: "https://us-central1-xmlcoment.cloudfunctions.net/updateReview",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: data
+                }).then(function successCallback(response) {
 
-    			});
+
+                }, function errorCallback(response) {
+
+                });
+
+    		
+    			refresh();
     			
     		}
     		
 
-    		$scope.deleteCom = function(id){
+    		$scope.deleteCom = function(userId, rezervacijaId){
     			$.ajax({
-    				url : "https://localhost:8096/comments/" + id,
-    				type : "DELETE",/*
-									 * contentType: "application/json;
-									 * charset=utf-8", dataType: "json",
-									 */
-    				headers : createAuthorizationTokenHeader(),
+    				url : "https://us-central1-xmlcoment.cloudfunctions.net/deleteReview?userId=" + userId + "&rezervacijaId=" + rezervacijaId,
+    				type : "GET",
     				success : function(data, textStatus, jqXHR) {
-    					refresh();
+    					
     					}
 
     			});
+    			refresh();
     			
     		}
     		

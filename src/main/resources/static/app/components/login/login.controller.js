@@ -24,7 +24,7 @@
                 headers: createAuthorizationTokenHeader()
               }).then(function successCallback(response) {
 	            	console.log("uzeo certs")
-	            	$location.path("/home")
+	            	window.location.reload();
 	            }, function errorCallback(response) {
 	            	console.log("nije uzeo certs")
 	            });    
@@ -40,7 +40,7 @@
 			// =============================================================
 			if (getJwtToken()) {
 				$scope.loggedIn = true;
-				$scope.getAdminCerts();
+				$location.path("/home")
 			}else{
 				
 				$scope.loggedIn = false;
@@ -75,9 +75,7 @@
 	            }).then(function successCallback(response) {
 	            	console.log(response.data.token)
 	            	setJwtToken(response.data.token);
-					
-					
-					$window.location.reload();
+	            	$scope.getAdminCerts();
 			
 	            }, function errorCallback(response) {
 	            	$scope.message="Bad credentials."
