@@ -36,7 +36,7 @@
     					$scope.catsOfAcc = data;
     					$timeout(function(){ $scope.$apply(); }, 150);
     					
-        					$scope.message ="";
+        				
     					
     				}
     				
@@ -74,6 +74,7 @@
     		
     
     		$scope.deleteCat = function(id){
+    			$scope.message="";
     			$.ajax({
     				url : "https://localhost:8096/api/kategorija/" + id,
     				type : "DELETE",/*
@@ -82,8 +83,21 @@
 									 */
     				headers : createAuthorizationTokenHeader(),
     				success : function(data, textStatus, jqXHR) {
+	    				
+    					$scope.message = data.text;
+    					$timeout(function(){ $scope.$apply(); }, 150);
     					getRequests();
-    					}
+    					
+    					
+    				},
+    				error:  function(data, textStatus, jqXHR) {
+    					console.log(data)
+    				
+    					$scope.message=data.text;
+    					getRequests();
+    					
+    					
+    				}
 
     			});
     			
@@ -110,6 +124,7 @@
                 data: document.getElementById("newEntry").value
             }).then(function successCallback(response) {
             	getRequests();
+            	$scope.message="";
             });
 	
     			document.getElementById("newEntry").value="";
