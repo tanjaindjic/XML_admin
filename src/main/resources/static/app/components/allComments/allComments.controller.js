@@ -27,15 +27,16 @@
     				success : function(data, textStatus, jqXHR) {
     					
     						$scope.allComments = data;
-
     						$timeout(function(){ $scope.$apply(); }, 150);
-        					$scope.message ="";
-        					console.log($scope.allComments.length)
-        				//	refresh();
+    						$scope.message ="";
+    						console.log($scope.allComments.length)
+    						
+    						$scope.message = "";
     					
     				}
     				
     			});
+    			
     		}
 
     		
@@ -88,14 +89,16 @@
                     },
                     data: data
                 }).then(function successCallback(response) {
-
+                	$timeout(function(){ 
+                		$scope.message="Waiting for Cloud response."
+                		refresh(); }, 300);
 
                 }, function errorCallback(response) {
 
                 });
 
     		
-    			refresh();
+    			
     			
     		}
     		
@@ -109,11 +112,18 @@
     					}
 
     			});
-    			refresh();
-    			
-    		}
+    			$.ajax({
+    				url : "https://localhost:8096/reservation/setBoolean/" + rezervacijaId,
+    				type : "GET",
+    				headers: createAuthorizationTokenHeader(),
+    				success : function(data, textStatus, jqXHR) {
+    					$timeout(function(){ 
+                    		$scope.message="Waiting for Cloud response."
+                    		refresh(); }, 300);
+    				}
+    			});
     		
- 
+    		}
 
     		function getJwtToken() {
     			return localStorage.getItem($scope.TOKEN_KEY);

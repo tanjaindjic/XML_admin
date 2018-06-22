@@ -33,7 +33,7 @@
     					
     						$scope.services = data;
     						$timeout(function(){ $scope.$apply(); }, 150);
-        					$scope.message ="";
+        			
         					console.log($scope.services.length)
     					
     				}
@@ -72,6 +72,7 @@
     		
     
     		$scope.deleteXS = function(id){
+    			$scope.message ="";
     			$.ajax({
     				url : "https://localhost:8096/api/dodatneUsluge/" + id,
     				type : "DELETE",/*
@@ -79,9 +80,23 @@
 									 * charset=utf-8", dataType: "json",
 									 */
     				headers : createAuthorizationTokenHeader(),
-    				success : function(data, textStatus, jqXHR) {
+					success : function(data, textStatus, jqXHR) {
+	    				
+    					$scope.message = data.text;
+    					$timeout(function(){ $scope.$apply(); }, 150);
     					getRequests();
-    					}
+    					
+    					
+    				},
+    				error:  function(data, textStatus, jqXHR) {
+    					console.log(data)
+    				
+    					$scope.message=data.text;
+    					getRequests();
+    					
+    					
+    				}
+
 
     			});
     			
@@ -117,6 +132,7 @@
                 data: document.getElementById("newEntry").value
             }).then(function successCallback(response) {
             	getRequests();
+            	$scope.message ="";
             });
 	
     			document.getElementById("newEntry").value="";
