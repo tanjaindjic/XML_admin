@@ -28,8 +28,6 @@ public class StartData {
 		kss.loadKeyStore("ksCa.jks", "passwordCa");
 		kss.loadKeyStore("ksNonCa.jks", "passwordNonCa");
 		
-		
-		
 		/*//kss.readIssuerFromStore("admin");
 		// System.out.println(kss.getCertificates());
 	
